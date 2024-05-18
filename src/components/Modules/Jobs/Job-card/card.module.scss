@@ -1,0 +1,55 @@
+.wrap {
+  background: #fff;
+  border-radius: 12px;
+  width: 410px;
+  position: relative;
+  padding: 25px 32px;
+  transition: 0.5s ease-in-out;
+  &:hover {
+    transform: scale(1.08);
+    transition: 0.5s ease-in-out;
+  }
+}
+
+.city {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: #ff9900;
+  color: #fff;
+}
+
+.cityText {
+  margin-left: 2px;
+}
+
+.contentWrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  width: 253px;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 45px;
+  text-align: center;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 24px;
+
+  margin-top: 15px;
+  margin-bottom: 30px;
+
+  text-align: center;
+}

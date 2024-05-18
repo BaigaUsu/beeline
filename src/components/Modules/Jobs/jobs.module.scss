@@ -1,0 +1,37 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.cardList {
+  margin-top: 85px;
+  width: 870px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-bottom: 35px;
+position: relative;
+z-index: 1;
+}
+
+.vaccancyBtn {
+  border: none;
+  outline: none;
+  text-decoration: underline;
+
+  font-size: 35px;
+  line-height: 23.04px;
+}
+
+
+.secondEllipse {
+  position: absolute;
+  right: 0;
+  top: 180px;
+}
