@@ -1,0 +1,91 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 100px;
+  width: 1197px;
+  margin: 0 auto;
+}
+.titleWrap {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  width: 845px;
+
+  font-size: 25px;
+  line-height: 30px;
+  margin-top: 31px;
+  margin-bottom: 85px;
+}
+
+.imagesWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  gap: 80px;
+  .bgIcon {
+    position: absolute;
+    top: -43px;
+    left: 8.5%;
+  }
+  .image {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.firstImg,
+.secondImg,
+.thirdImg,
+.fourthImg {
+  transition: transform 0.3s ease-in-out;
+}
+
+.firstImg:hover {
+  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+}
+
+.firstImg:hover ~ .secondImg {
+  transform: translateX(20px); /* Сдвигаем вправо следующее изображение */
+}
+
+.firstImg:hover ~ .thirdImg,
+.firstImg:hover ~ .fourthImg {
+  transform: translateY(20px); /* Сдвигаем вниз остальные изображения */
+}
+
+.secondImg:hover {
+  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+}
+
+.hovered {
+  transform: translateX(-20px); /* Сдвигаем влево предыдущее изображение */
+}
+
+.secondImg:hover ~ .thirdImg,
+.secondImg:hover ~ .fourthImg {
+  transform: translateY(20px); /* Сдвигаем вниз остальные изображения */
+}
+
+.thirdImg:hover {
+  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+}
+
+.thirdImg:hover ~ .fourthImg {
+  transform: translate(
+    10px,
+    10px
+  ); /* Сдвигаем вправо и вниз fourthImg при наведении на thirdImg */
+}
+
+.fourthImg:hover {
+  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+}
+
+.thirdHovered {
+  transform: translate(-10px, 10px); /* Сдвигаем влево предыдущее изображение */
+}
