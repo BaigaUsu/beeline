@@ -1,0 +1,41 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  padding-top: 114px;
+  padding-bottom: 119px;
+  align-items: center;
+}
+
+.contentWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #ff9900 0%, #ffcd00 76.58%);
+}
+
+.numberInCircle {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+.description {
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 42px;
+  margin-left: 20px;
+}
