@@ -1,0 +1,25 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.iconsWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 81px;
+  .iconsFirst {
+    margin-bottom: 100px;
+  }
+}
+
+.icon:not(:nth-child(3)) {
+  margin-right: 150px;
+}
+.icon:last-child {
+  margin-right: 0;
+}
