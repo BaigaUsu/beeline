@@ -1,0 +1,41 @@
+.wrap {
+  border-top: 1px solid #424242;
+  border-bottom: 1px solid #424242;
+  padding: 28px 0;
+  margin-top: 75px;
+  display: flex;
+  align-items: center;
+}
+
+.iconsWrap {
+  display: flex;
+  align-items: center;
+  margin-right: 113.5px;
+  .icon:not(:last-child) {
+    margin-right: 25px;
+  }
+}
+
+.contactsWrap {
+  display: flex;
+  margin-right: 70.63px;
+  .contact {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    .linkIcon {
+      margin-right: 5px;
+    }
+  }
+  .contact:not(:last-child) {
+    margin-right: 17.61px;
+  }
+}
+
+.forOtherCompanies {
+  color: #fff;
+  font-size: 14px;
+  line-height: 21px;
+}

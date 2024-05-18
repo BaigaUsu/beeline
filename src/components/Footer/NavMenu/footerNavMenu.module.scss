@@ -1,0 +1,28 @@
+.wrap {
+  display: flex;
+}
+
+.list {
+    width: 270px;
+}
+
+.list:not(:last-child) {
+    margin-right: 15px;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 21.6px;
+  color: #fff;
+  margin-bottom: 32px;
+}
+
+.listItem {
+  font-size: 14px;
+  line-height: 16.8px;
+  color: #808285;
+}
+
+.listItem:not(:last-child) {
+  margin-bottom: 32px;
+}

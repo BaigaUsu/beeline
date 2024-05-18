@@ -8,7 +8,7 @@ export default function HeaderSecond() {
       <div className={styles.container}>
         <div className={styles.logoListWrap}>
           <div>
-            <Image src='/logo.svg' alt="" width={44} height={44} />
+            <Image src='/headerIcons/logo.svg' alt="" width={44} height={44} />
           </div>
           <ul className={styles.list}>
             <li className={styles.listItem}>Тарифы</li>
@@ -21,7 +21,7 @@ export default function HeaderSecond() {
         </div>
 
         <div className={styles.logInWrap}>
-          <Image src='/searchIcon.svg' alt="" width={24} height={24} />
+          <Image src='/headerIcons/searchIcon.svg' alt="" width={24} height={24} />
           <Button className={styles.btn} variant="main">
             Войти
           </Button>
