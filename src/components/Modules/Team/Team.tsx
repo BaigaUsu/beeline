@@ -10,11 +10,11 @@ export default function Team() {
       </Title>
 
       <div className={styles.carousel}>
-        <button className={`${styles.btn} ${styles.leftBtn}`} />
+        {/* <button className={`${styles.btn} ${styles.leftBtn}`} /> */}
         <Image className={styles.image} src='/team-image/first-img.png' alt="" width='820' height='440'/>
         <Image className={styles.image} src='/team-image/first-img.png' alt="" width='820' height='440'/>
         <Image className={styles.image} src='/team-image/first-img.png' alt="" width='820' height='440'/>
-        <button className={`${styles.btn} ${styles.rightBtn}`} />
+        {/* <button className={`${styles.btn} ${styles.rightBtn}`} /> */}
       </div>
     </div>
   );
