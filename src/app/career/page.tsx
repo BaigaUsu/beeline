@@ -4,6 +4,7 @@ import Jobs from "@/components/Modules/Jobs/Jobs";
 import WhyUs from "@/components/Modules/WhyUs/WhyUs";
 import Values from "@/components/Modules/Values/Values";
 import Team from "@/components/Modules/Team/Team";
+import Faq from "@/components/Modules/Faq/Faq";
 
 export default function Career() {
     return (
@@ -13,6 +14,7 @@ export default function Career() {
             <WhyUs/>
             <Values/>
             <Team/>
+            <Faq/>
         </main>
     )
 }

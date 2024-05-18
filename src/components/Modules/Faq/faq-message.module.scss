@@ -1,0 +1,32 @@
+.wrap {
+  padding: 42px 36px;
+  width: 925px;
+  background: #ffcd00;
+  border-radius: 30px;
+
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 24px;
+  color: #fff;
+  // border: 2px solid #ffcd00;
+}
+
+.question {
+  background-color: #ffcd00;
+  color: #fff;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.answer {
+  padding: 20px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 15px;
+  margin-top: 10px;
+}
