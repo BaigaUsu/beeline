@@ -1,0 +1,56 @@
+.wrapper {
+  background-color: #F6F6F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1176px;
+  width: 100%;
+}
+
+.faqSection {
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  .faqTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .faqList {
+    border-radius: 5px; // Закругляем углы границы
+    
+
+    .faqItem {
+      border-radius: 12px;
+      padding: 15px; // Отступы внутри элемента списка
+      margin-bottom: 10px;
+      background-color: #fff;
+
+      &:last-child {
+        border-bottom: none; // Убираем нижнюю границу у последнего элемента
+      }
+
+      .faqQuestion {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+          font-size: 16px;
+          margin: 0; // Убираем внешние отступы у абзаца
+        }
+
+        .faqExpand {
+          font-size: 24px;
+          font-weight: bold;
+          color: #0094FF; // Серый цвет для знака плюса
+          cursor: pointer; // Курсор при наведении
+        }
+      }
+    }
+  }
+}

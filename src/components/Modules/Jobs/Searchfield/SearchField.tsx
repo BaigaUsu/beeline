@@ -1,7 +1,8 @@
 import { UiSearchBar } from "@/components/UI/Searchbar/Searchbar";
+import { MainTitle } from "@/components/UI/Heading/Heading";
 import styles from "./searchField.module.scss";
 import Image from "next/image";
-import { MainTitle } from "@/components/UI/Heading/Heading";
+import Link from "next/link";
 
 export default function SearchField() {
   return (
@@ -18,14 +19,14 @@ export default function SearchField() {
       </div>
       <div className={styles.btnsWrap}>
         <div className={styles.firstBtnsWrap}>
-          <button className={styles.btn}>Call - center</button>
-          <button className={styles.btn}>Стажировка</button>
-          <button className={styles.btn}>Промоутеры</button>
+          <Link href="/career/call-center" className={styles.btn}>Call - center</Link>
+          <Link href="/career/call-center" className={styles.btn}>Стажировка</Link>
+          <Link href="/career/call-center" className={styles.btn}>Промоутеры</Link>
         </div>
 
         <div className={styles.secondBtnsWrap}>
-          <button className={styles.btn}>Экспертные вакансии</button>
-          <button className={styles.btn}>Офисы продаж и обслуживания</button>
+          <Link href="/career/call-center" className={styles.btn}>Экспертные вакансии</Link>
+          <Link href="/career/call-center" className={styles.btn}>Офисы продаж и обслуживания</Link>
         </div>
       </div>
       </>

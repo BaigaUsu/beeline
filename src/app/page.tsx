@@ -1,14 +1,12 @@
-import Header from "@/components/Header/Header";
+import Layout from "./career/layout";
 import Career from "./career/page";
-import Footer from "@/components/Footer/Footer";
-
 
 export default function Home() {
   return (
     <>
-      <Header/>
-      <Career/>
-      <Footer/>
+      <Layout>
+        <Career/>
+      </Layout>
     </>
   );
 }

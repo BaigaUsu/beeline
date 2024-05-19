@@ -1,0 +1,59 @@
+ .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 1920px;
+}
+ 
+ .lifeSection {
+    padding-right: 120px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+
+    .lifeSectionInner {
+    display: flex;
+    align-items: center;
+  }
+
+    .image {
+    height: auto;
+    display: block;
+  }
+
+  .contentContainer {
+    margin-left: -120px;
+    position: relative;
+    max-width: 500px;
+
+    .lifeTitle {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .lifeDescription {
+      font-size: 20px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .watchVideoButton {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-style: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: 600;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

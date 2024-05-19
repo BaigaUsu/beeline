@@ -1,0 +1,94 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F6F6F6;
+  padding-bottom: 20px;
+}
+
+.container {
+  max-width: 1176px;
+  width: 100%;
+  
+}
+
+.header {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sidebar {
+  width: 200px;
+  margin-left: 20px;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  flex: 30%;
+}
+
+.item {
+  flex: 70%;
+}
+
+.vacancy-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.5;
+  
+}
+
+.vacancy-card h2 {
+  color: #007BFF;
+  margin: 0;
+}
+
+.vacancy-card p {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.vacancy-card .location {
+  display: flex;
+  margin-top: -60px;
+  color: #777;
+}
+
+.vacancy-card .location svg {
+  margin-right: 5px;
+}
+
+.sidebar_header {
+  background-color: #000;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #000;
+  padding: 10px 20px;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+}
