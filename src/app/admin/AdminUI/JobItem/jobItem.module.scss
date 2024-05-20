@@ -1,0 +1,14 @@
+.jobItem {
+  td {
+    padding: 20px
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+
+    input {
+      margin-right: 10px;
+    }
+  }
+}

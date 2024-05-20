@@ -1,0 +1,37 @@
+.sidebar {
+  background-color: #fff;
+  box-shadow: 1px 0 5px rgba(163, 159, 159, 0.1);
+  // height: 100vh;
+}
+
+.nav ul {
+  padding: 30px 0 30px 30px;
+  list-style: none;
+  margin: 0;
+  
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 100px 10px 10px;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: #9197B3;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:hover, &.active {
+      background-color: #ffa500;
+      color: #fff;
+    }
+
+    &.active {
+      background-color: #ffa500;
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background-color: #fff;
+  margin-left: 10px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.profile {
+  text-align: right;
+  display: flex;
+  align-items: center;
+
+  .btn1, .btn2 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 9px;
+    background-color: #FFB001;
+    color: white;
+    text-align: center;
+  }
+}
