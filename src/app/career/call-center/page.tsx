@@ -1,8 +1,7 @@
-import Bottom from '@/components/CallCenter/Bottom/Bottom';
-import styles from './CallCenter.module.scss';
-import Head from '@/components/CallCenter/Head/Head';
-import Picture from '@/components/CallCenter/Picture/Picture';
-import Questions from '@/components/CallCenter/Questions/Questions';
+import Bottom from '@/app/career/call-center/CallCenterUI/Bottom/Bottom';
+import Head from '@/app/career/call-center/CallCenterUI/Head/Head';
+import Picture from '@/app/career/call-center/CallCenterUI/Picture/Picture';
+import Questions from '@/app/career/call-center/CallCenterUI/Questions/Questions';
 
 export default function CallCenter () {
   return (

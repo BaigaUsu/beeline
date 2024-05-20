@@ -1,6 +1,6 @@
 'use client'
 
-import List from '@/components/Vacancies/List/List';
+import List from '@/app/career/vacancies/[list]/ListUI/List';
 import Link from 'next/link';
 // import { useParams } from 'next/navigation';
 
