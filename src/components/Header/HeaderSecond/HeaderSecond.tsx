@@ -23,9 +23,11 @@ export default function HeaderSecond() {
 
         <div className={styles.logInWrap}>
           <Image src='/headerIcons/searchIcon.svg' alt="" width={24} height={24} />
+          <Link href='/career/login'>
           <Button className={styles.btn} variant="main">
             Войти
           </Button>
+          </Link>
         </div>
       </div>
     </div>
