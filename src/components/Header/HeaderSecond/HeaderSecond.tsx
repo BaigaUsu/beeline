@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./headerSecond.module.scss";
 import Button from "@/components/UI/Button/Button";
+import Link from "next/link";
 
 export default function HeaderSecond() {
   return (
@@ -15,7 +16,7 @@ export default function HeaderSecond() {
             <li className={styles.listItem}>Услуги</li>
             <li className={styles.listItem}>Пополнение</li>
             <li className={styles.listItem}>Роуминг</li>
-            <li className={styles.listItem}>Карьера в Beeline</li>
+            <Link href='/career' className={styles.listItem}>Карьера в Beeline</Link>
             <li className={styles.listItem}>Регистрация номера</li>
           </ul>
         </div>

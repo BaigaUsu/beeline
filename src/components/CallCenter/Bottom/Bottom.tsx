@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './bottom.module.scss';
 
-const Bottom = () => {
+export default function Bottom() {
   return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -46,5 +46,3 @@ const Bottom = () => {
         </div>
     );
 };
-
-export default Bottom;

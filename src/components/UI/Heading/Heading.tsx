@@ -8,7 +8,7 @@ export type UiMainTitleProps = {
 };
 
 export const MainTitle = ({ className, children }: UiMainTitleProps) => {
-  return <h1 className={styles.mainTitle}>{children}</h1>;
+  return <h1 className={clsx(className, styles.mainTitle)}>{children}</h1>;
 };
 
 

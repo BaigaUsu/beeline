@@ -25,7 +25,7 @@ export default function SearchField() {
         </div>
 
         <div className={styles.secondBtnsWrap}>
-          <Link href="/career/call-center" className={styles.btn}>Экспертные вакансии</Link>
+          <Link href="/career/vacancies/list" className={styles.btn}>Экспертные вакансии</Link>
           <Link href="/career/call-center" className={styles.btn}>Офисы продаж и обслуживания</Link>
         </div>
       </div>
