@@ -1,5 +1,4 @@
 'use client'
-
 import { ButtonHTMLAttributes, useState } from "react";
 import clsx from "clsx";
 import styles from "./button.module.scss";

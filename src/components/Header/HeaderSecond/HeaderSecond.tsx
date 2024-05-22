@@ -1,9 +1,15 @@
+"use client";
 import Image from "next/image";
 import styles from "./headerSecond.module.scss";
-import Button from "@/components/UI/Button/Button";
 import Link from "next/link";
+import Button from "@/components/UI/Button/Button";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function HeaderSecond() {
+  const session = useSession()
+
+  console.log(session)
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -23,11 +29,18 @@ export default function HeaderSecond() {
 
         <div className={styles.logInWrap}>
           <Image src='/headerIcons/searchIcon.svg' alt="" width={24} height={24} />
-          <Link href='/career/login'>
-          <Button className={styles.btn} variant="main">
-            Войти
-          </Button>
-          </Link>
+          {session?.data && <Link href='/admin'><Button className={styles.btn} variant="main">
+                Админка
+              </Button></Link>}
+          {session?.data ? (<Link href='#' onClick={() => signOut({callbackUrl: "/"})}><Button className={styles.btn} variant="main">
+                Выйти
+              </Button></Link>
+          ) : (<Link href='/api/auth/signin'>
+              <Button className={styles.btn} variant="main">
+                Войти
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

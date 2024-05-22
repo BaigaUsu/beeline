@@ -21,7 +21,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} method='post'>
       <div className={styles.formGroup}>
         <label htmlFor="position" className={styles.label}>Должность</label>
         <select id="position" {...register('position', { required: true })} className={styles.select}>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fira_Sans } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers/Providers";
 
 const firaSans = Fira_Sans({ subsets: ["latin"], weight: "400" });
 
@@ -15,8 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={firaSans.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={firaSans.className}>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

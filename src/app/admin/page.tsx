@@ -5,7 +5,9 @@ import Sidebar from "./AdminUI/Sidebar/Sidebar";
 import Layout from "./layout";
 import styles from './global.module.scss';
 
-export default function Admin() {
+
+
+export default async function Admin() {
     return (
         <Layout className={styles.layout}>
             <Header className={styles.header} />
