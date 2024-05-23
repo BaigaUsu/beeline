@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import styles from './header.module.scss'
 import Link from 'next/link'
+import { getServerSession } from 'next-auth';
+import { authConfig } from '../../../../../configs/auth';
 
 interface HeaderProps {
   className?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ className }) => {
+const  Header: React.FC<HeaderProps> = async({ className }) => {
+    const session = await getServerSession(authConfig);
     return (
         <div className={styles.container}>
             <div className={styles.logo}>
@@ -15,8 +18,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             </div>
             <div className={styles.user}>
                 <div className={styles.description}>
-                    <p className={styles.name}>Асанбеков Асан Асанович</p>
-                    <p className={styles.position}>Менеджер</p>
+                    <div >{session?.user?.name}</div> 
+                    <div className={styles.position}>{session?.user?.role}</div>
                 </div>
                 <Image src='/headerIcons/logo.svg' alt='' width='44' height='44'/>
             </div>

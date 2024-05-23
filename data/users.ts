@@ -1,47 +1,45 @@
+// data/users.ts
 export const users = [
   {
     id: "1",
     email: "mishanep@gmail.com",
     name: "Misha Nep",
     password: "12345",
-    role: "users",
+    role: "user",
   },
   {
     id: "2",
     email: "admin@pcgramota.ru",
     name: "Super Admin",
     password: "12345",
-    role: "users",
+    role: "user",
   },
   {
     id: "3",
     email: "any@gmail.com",
     name: "Just a Guest",
     password: "12345",
-    role: "users",
+    role: "user",
   },
-];
-
-export const admin = [
   {
-    id: "1",
-    email: "новый@gmail.com",
+    id: "4",
+    email: "fdj@gmail.com",
     name: "Новый Пользователь",
     password: "qwerty",
     role: "admin",
   },
   {
-    id: "2",
-    email: "admin@pcgramota.ru",
+    id: "5",
+    email: "adm@pcgramota.ru",
     name: "Супер Админ",
-    password: "пароль",
+    password: "пароль123",
     role: "admin",
   },
   {
-    id: "3",
-    email: "гость@example.com",
+    id: "6",
+    email: "fda@example.com",
     name: "Просто Гость",
     password: "пароль123",
     role: "admin",
   },
-]; 
+];

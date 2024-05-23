@@ -1,7 +1,10 @@
-'use client'
+// vacancyForm.tsx
+'use client';
+
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './vacancyForm.module.scss';
+import ApiUrl from '@/app/api/values';
 
 type FormData = {
   position: string;
@@ -9,6 +12,7 @@ type FormData = {
   jobType: string;
   description: string;
 };
+
 interface VacancyFormProps {
   className?: string;
 }
@@ -16,14 +20,33 @@ interface VacancyFormProps {
 const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-  };
+  const onSubmit = async (data: FormData) => {
+  try {
+    const response = await fetch(ApiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      console.log('Form data submitted successfully');
+    } else {
+      console.error('Error submitting form data');
+      console.error('Server response:', await response.text());
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} method='post'>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} method="post">
       <div className={styles.formGroup}>
-        <label htmlFor="position" className={styles.label}>Должность</label>
+        <label htmlFor="position" className={styles.label}>
+          Должность
+        </label>
         <select id="position" {...register('position', { required: true })} className={styles.select}>
           <option value="Frontend">Frontend</option>
           <option value="Backend">Backend</option>
@@ -33,7 +56,9 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="salary" className={styles.label}>Зарплата</label>
+        <label htmlFor="salary" className={styles.label}>
+          Зарплата
+        </label>
         <input
           id="salary"
           {...register('salary', { required: true })}
@@ -44,7 +69,9 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="jobType" className={styles.label}>Тип работы</label>
+        <label htmlFor="jobType" className={styles.label}>
+          Тип работы
+        </label>
         <select id="jobType" {...register('jobType', { required: true })} className={styles.select}>
           <option value="Офис">Офис</option>
           <option value="Дома">Дома</option>
@@ -54,7 +81,9 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="description" className={styles.label}>Описание</label>
+        <label htmlFor="description" className={styles.label}>
+          Описание
+        </label>
         <textarea
           id="description"
           {...register('description')}
@@ -64,8 +93,12 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
       </div>
 
       <div className={styles.buttonGroup}>
-        <button type="submit" className={styles.saveButton}>Сохранить</button>
-        <button type="button" className={styles.cancelButton}>Отмена</button>
+        <button type="submit" className={styles.saveButton}>
+          Сохранить
+        </button>
+        <button type="button" className={styles.cancelButton}>
+          Отмена
+        </button>
       </div>
     </form>
   );

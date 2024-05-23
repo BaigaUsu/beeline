@@ -2,39 +2,21 @@ import Image from "next/image";
 import JobCard from "./Job-card/Card";
 import styles from './jobs.module.scss'
 import SearchField from "./Searchfield/SearchField";
+import JobList from "./Job-card/Card";
+
+interface Job {
+  id: string;
+  city: string;
+  title: string;
+  description: string;
+}
 
 export default function Jobs() {
     return (
     <div className={styles.wrap}>
         <SearchField/>
             <div className={styles.cardList}>
-                <JobCard
-                id="1"
-                city="Ош"
-                title="Специалист контакт центра"
-                description="Ты подойдешь нам, даже если у тебя нет опыта работы. Начни свой путь в большой,
-        международной компании!"
-                />
-                <JobCard
-                id="1"
-                city="Ош"
-                title="Специалист контакт центра"
-                description="Ты подойдешь нам, даже если у тебя нет опыта работы. Начни свой путь в большой,
-        международной компании!"
-                />
-                <JobCard
-                id="1"
-                city="Ош"
-                title="Специалист контакт центра"
-                description="Ты подойдешь нам, даже если у тебя нет опыта работы. Начни свой путь в большой,
-        международной компании!"
-                />
-                <JobCard
-                id="1"
-                city="Ош"
-                title="Специалист контакт центра"
-                description="Ты подойдешь нам, даже если у тебя нет опыта работы. Начни свой путь в большой,
-        международной компании!"
+                <JobList
                 />
         </div>
         <div className={styles.vaccancyBtnWrap}>

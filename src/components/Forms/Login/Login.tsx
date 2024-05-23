@@ -1,49 +1,34 @@
+// components/Login.tsx
 'use client'
 
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import styles from './login.module.scss';
 import { useRouter } from 'next/navigation';
-import { encrypt, decrypt, logout } from "@/app/lib/auth";
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Остановка отправки формы по умолчанию
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
 
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("name", name);
+    const result = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+    });
 
-    try {
-      // Проверка введенных данных и вход пользователя
-      const session = await decrypt(localStorage.getItem("session") || "");
-      const validUser = session.userInfoList.some((userInfo) => 
-        userInfo.email === email && userInfo.name === name
-      );
-
-      if (validUser) {
-        console.log("User entered correct credentials. Logging in...");
-        const expires = new Date(Date.now() + 100 * 1000); // 100 seconds from now
-        const newSession = await encrypt(session); // Сохраняем весь объект сессии
-        localStorage.setItem("session", newSession);
-        console.log("Session stored in localStorage:", newSession);
-        router.push("/");
-      } else {
-        console.log("User entered incorrect credentials. Not logging in.");
-      }
-    } catch (error) {
-      console.error('Login failed:', error);
-      // Обработка ошибки входа, например, отображение сообщения об ошибке
+    if (result?.error) {
+      setError(result.error);
+    } else {
+      // Optionally handle successful login
+      router.push('/');
     }
-  };
-
-  const handleLogout = () => {
-    logout();
-    router.push("/"); // Перенаправляем пользователя на главную страницу после выхода
   };
 
   return (
@@ -54,31 +39,31 @@ export default function Login() {
           <form onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
               <input
-                type="text"
-                placeholder="Имя пользователя"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className={styles.inputGroup}>
               <input
                 type="password"
                 placeholder="Пароль"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <a href="#" className={styles.forgotPassword}>
                 Забыли пароль?
               </a>
             </div>
+            {error && <p className={styles.error}>{error}</p>}
             <button type="submit" className={styles.loginButton}>
               Войти
             </button>
             <button className={styles.registerButton}>Регистрация</button>
           </form>
-          <button onClick={handleLogout} className={styles.logoutButton}>
-            Выйти
-          </button>
         </div>
         <div className={styles.illustration}>
           <Image src="/login/login-icon.svg" alt="Login Illustration" width={410} height={410} />
@@ -86,4 +71,7 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;
+``
