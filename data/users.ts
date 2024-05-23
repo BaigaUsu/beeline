@@ -9,9 +9,9 @@ export const users = [
   },
   {
     id: "2",
-    email: "admin@pcgramota.ru",
+    email: "admin@pcgramota.com",
     name: "Super Admin",
-    password: "12345",
+    password: "fdafa12345",
     role: "user",
   },
   {
@@ -38,7 +38,7 @@ export const users = [
   {
     id: "6",
     email: "fda@example.com",
-    name: "Просто Гость",
+    name: "Просто Адимн",
     password: "пароль123",
     role: "admin",
   },

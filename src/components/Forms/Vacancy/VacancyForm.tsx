@@ -54,9 +54,9 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           Должность
         </label>
         <select id="position" {...register('name', { required: true })} className={styles.select}>
-          <option value="Frontend">Frontend</option>
+          <option className={styles.option} value="Frontend">Frontend</option>
           <option value="Backend">Backend</option>
-          <option value="Loh">Loh</option>
+          <option value="Другое">Другое</option>
         </select>
         {errors.name && <span className={styles.error}>This field is required</span>}
       </div>
