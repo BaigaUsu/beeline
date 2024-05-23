@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import Button from "@/components/UI/Button/Button";
 import styles from "./card.module.scss";
 import Image from "next/image";
-import { headers } from 'next/headers';
 import ApiUrl from '@/app/api/values';
 
 interface Job {
@@ -36,7 +35,7 @@ export default function JobList() {
   };
 
   return (
-    <div>
+    <>
       {jobs.map((job, index) => (
         <JobCard
           key={index}
@@ -45,7 +44,7 @@ export default function JobList() {
           description={job.description}
         />
       ))}
-    </div>
+    </>
   );
 }
 

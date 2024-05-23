@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   padding-bottom: 100px;
-  width: 1197px;
+  max-width: 100%;
   margin: 0 auto;
 }
 .titleWrap {
@@ -31,6 +31,7 @@
     position: absolute;
     top: -43px;
     left: 8.5%;
+    // height: 100%;
   }
   .image {
     position: relative;
@@ -88,4 +89,30 @@
 
 .thirdHovered {
   transform: translate(-10px, 10px); /* Сдвигаем влево предыдущее изображение */
+}
+
+@media (max-width: 1200px) {
+  .image {
+    max-width: 100px;
+  }
+  .bgIcon {
+    text-align: center;
+    max-width: 200px;
+    padding-left: 180px;
+  }
+  .description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .image {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image {
+    max-width: 150px;
+  }
 }

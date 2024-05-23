@@ -32,3 +32,9 @@
   display: block;
   margin-right: 85px;
 }
+
+@media (max-width: 1200px) {
+  .image {
+    max-width: 200px;
+  }
+}

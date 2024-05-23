@@ -2,14 +2,14 @@ import Header from "./AdminUI/Header/Header";
 import JobList from "./AdminUI/JobList/JobList";
 import ListHead from "./AdminUI/JobListHead/ListHead";
 import Sidebar from "./AdminUI/Sidebar/Sidebar";
-import Layout from "./layout";
+// import Layout from "./layout";
 import styles from './global.module.scss';
 
 
 
 export default async function Admin() {
     return (
-        <Layout className={styles.layout}>
+        <div className={styles.layout}>
             <Header className={styles.header} />
             <div className={styles.main}>
                 <Sidebar className={styles.sidebar} />
@@ -18,6 +18,6 @@ export default async function Admin() {
                     <JobList className={styles["job-list"]} />
                 </div>
             </div>
-        </Layout>
+        </div>
     );
 }

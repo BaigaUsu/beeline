@@ -42,7 +42,7 @@ export default function Values() {
           </ul>
         </div>
         <div>
-          <Image src='/values-image/our-values.png' alt="our-values-img" width='681' height='501'/>
+          <Image src='/values-image/our-values.png' alt="our-values-img" className={styles.image} width='681' height='501'/>
         </div>
       </div>
     </div>

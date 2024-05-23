@@ -39,3 +39,9 @@
   line-height: 42px;
   margin-left: 20px;
 }
+
+@media (max-width: 1200px) {
+  .image {
+    max-width: 200px;
+  }
+}

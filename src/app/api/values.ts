@@ -1,3 +1,3 @@
- const ApiUrl = 'https://22410faf49edff14d9fd59689c14cd5a.serveo.net/api/vacancy/';
+ const ApiUrl = 'https://ttraining548.pythonanywhere.com/api/vacancy/';
 
  export default ApiUrl
