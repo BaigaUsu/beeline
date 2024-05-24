@@ -2,7 +2,7 @@
   "build": {
     "env": {
       "NEXTAUTH_SECRET": "fk290foje09dhjv209oihf2j09e",
-      "NEXTAUTH_URL": "https://your-deployed-site.vercel.app"
+      "NEXTAUTH_URL": "https://beeline-beryl.vercel.app/"
     }
   }
 }

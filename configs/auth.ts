@@ -1,4 +1,3 @@
-// auth/authConfig.ts
 import type { AuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { users } from '../data/users';
@@ -41,4 +40,5 @@ export const authConfig: AuthOptions = {
       return token;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
