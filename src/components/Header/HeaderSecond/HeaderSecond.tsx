@@ -19,7 +19,7 @@ export default function HeaderSecond() {
             <li className={styles.listItem}>Тарифы</li>
             <li className={styles.listItem}>Услуги</li>
             <li className={styles.listItem}>Пополнение</li>
-            <li className={styles.listItem}>Роуминг</li>
+            <Link href='/admin' className={styles.listItem}>Роуминг</Link>
             <Link href='/career' className={styles.listItem}>Карьера в Beeline</Link>
             <li className={styles.listItem}>Регистрация номера</li>
           </ul>
