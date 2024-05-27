@@ -6,6 +6,11 @@
   padding-bottom: 100px;
   max-width: 100%;
   margin: 0 auto;
+  
+  @media (max-width: 778px) {
+    padding-bottom: 30px;
+  }
+
 }
 .titleWrap {
   text-align: center;
@@ -13,29 +18,39 @@
 
 .description {
   text-align: center;
-  width: 845px;
-
-  font-size: 25px;
-  line-height: 30px;
+  max-width: 845px;
+  font-size: clamp(18px, 2vw, 25px);
+  line-height: clamp(20px, 3vw, 30px);
   margin-top: 31px;
   margin-bottom: 85px;
+  padding: 0 20px;
+
+  @media (max-width: 778px) {
+    margin-bottom: 30px;
+  }
 }
 
 .imagesWrap {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+  gap: clamp(20px, 5vw, 80px);
   position: relative;
-  gap: 80px;
+  padding: 0 30px;
   .bgIcon {
     position: absolute;
-    top: -43px;
-    left: 8.5%;
-    // height: 100%;
+    top: clamp(-20px, -5vw, -43px);
+    max-width: 100%;
+    height: 100%;
+    padding: 0 20px;
   }
   .image {
     position: relative;
     z-index: 1;
+    max-width: 100%;
+    height: 100%;
   }
 }
 
@@ -47,72 +62,46 @@
 }
 
 .firstImg:hover {
-  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+  transform: scale(1.1); 
 }
 
 .firstImg:hover ~ .secondImg {
-  transform: translateX(20px); /* Сдвигаем вправо следующее изображение */
+  transform: translateX(20px);
 }
 
 .firstImg:hover ~ .thirdImg,
 .firstImg:hover ~ .fourthImg {
-  transform: translateY(20px); /* Сдвигаем вниз остальные изображения */
+  transform: translateY(20px);
 }
 
 .secondImg:hover {
-  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+  transform: scale(1.1);
 }
 
 .hovered {
-  transform: translateX(-20px); /* Сдвигаем влево предыдущее изображение */
+  transform: translateX(-20px);
 }
 
 .secondImg:hover ~ .thirdImg,
 .secondImg:hover ~ .fourthImg {
-  transform: translateY(20px); /* Сдвигаем вниз остальные изображения */
+  transform: translateY(20px); 
 }
 
 .thirdImg:hover {
-  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+  transform: scale(1.1); 
 }
 
 .thirdImg:hover ~ .fourthImg {
   transform: translate(
     10px,
     10px
-  ); /* Сдвигаем вправо и вниз fourthImg при наведении на thirdImg */
+  ); 
 }
 
 .fourthImg:hover {
-  transform: scale(1.1); /* Увеличиваем размер текущего изображения */
+  transform: scale(1.1);
 }
 
 .thirdHovered {
-  transform: translate(-10px, 10px); /* Сдвигаем влево предыдущее изображение */
-}
-
-@media (max-width: 1200px) {
-  .image {
-    max-width: 100px;
-  }
-  .bgIcon {
-    text-align: center;
-    max-width: 200px;
-    padding-left: 180px;
-  }
-  .description {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .image {
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .image {
-    max-width: 150px;
-  }
+  transform: translate(-10px, 10px);
 }
