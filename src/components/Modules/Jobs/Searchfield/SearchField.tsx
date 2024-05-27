@@ -8,6 +8,7 @@ export default function SearchField() {
   return (
     <>
       <Image src='/jobsIcons/ellipseFirstIcon.svg' alt="" className={styles.firstEllipse} width="431" height="557"/>
+      <Image src='/jobsIcons/ellipseSecondIcon.svg' alt="" className={styles.secondEllipse} width="317" height="809"/>
       <div className={styles.titleWrap}>
         <MainTitle>
           Работа с <span className={styles.titleSpan}>Beeline</span>
@@ -17,18 +18,15 @@ export default function SearchField() {
       <div>
         <UiSearchBar />
       </div>
-      <div className={styles.btnsWrap}>
-        <div className={styles.firstBtnsWrap}>
-          <Link href="/career/call-center" className={styles.btn}>Call - center</Link>
+      <div className={styles.btnsWrapper}>
+        <div className={styles.btnGrid}>
+          <Link href="/career/call-center" className={`${styles.btn} ${styles.btn1}`}>Call - center</Link>
           <Link href="/career/call-center" className={styles.btn}>Стажировка</Link>
           <Link href="/career/call-center" className={styles.btn}>Промоутеры</Link>
-        </div>
-
-        <div className={styles.secondBtnsWrap}>
-          <Link href="/career/vacancies/list" className={styles.btn}>Экспертные вакансии</Link>
-          <Link href="/career/call-center" className={styles.btn}>Офисы продаж и обслуживания</Link>
+          <Link href="/career/vacancies/list" className={`${styles.btn} ${styles.widerBtn}`}>Экспертные вакансии</Link>
+          <Link href="/career/call-center" className={`${styles.btn} ${styles.widerBtn}`}>Офисы продаж и обслуживания</Link>
         </div>
       </div>
-      </>
+    </>
   );
 }

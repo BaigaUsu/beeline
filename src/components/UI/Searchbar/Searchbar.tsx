@@ -13,9 +13,9 @@ export const UiSearchBar: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className={styles.form}>
+    <div onSubmit={handleSearch} className={styles.form}>
       <div className={styles.wrap}>
-        <Image src='/jobsIcons/searchIcon.svg' alt="searchIcon" width="24" height="24"/>
+        <Image src='/jobsIcons/searchIcon.svg' alt="searchIcon" width="24" height="24" className={styles.logo}/>
         <input
           type="text"
           placeholder="Frontend разработчик"
@@ -24,7 +24,7 @@ export const UiSearchBar: React.FC = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-    </form>
+    </div>
   );
 };
 

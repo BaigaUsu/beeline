@@ -1,9 +1,22 @@
-
 .firstEllipse {
   position: absolute;
-  top: -110px;
-  left: 0px;
-  // transform: rotate(10deg);
+  top: -6.875rem;
+  left: 0;
+  transform: rotate(10deg);
+
+  @media (max-width: 778px) {
+    display: none;
+  }
+}
+
+.secondEllipse {
+  position: absolute;
+  right: 0;
+  top: 11.25rem;
+
+  @media (max-width: 778px) {
+    display: none;
+  }
 }
 
 .titleWrap {
@@ -18,49 +31,128 @@
 }
 
 .description {
-  margin-top: 15px;
-  margin-bottom: 70px;
+  margin-top: 0.938rem;
+  margin-bottom: 4.375rem;
+  position: relative;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 
-  font-size: 30px;
-  line-height: 36px;
+  @media (max-width: 576px) {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    margin-top: 0.10rem;
+  }
+
+  @media (max-width: 425px) {
+    font-size: 1.125rem;
+  }
 }
 
-.btn:not(:last-child) {
-  margin-right: 50px;
+.btnGrid {
+  max-width: 778px;
+  margin-top: 1.875rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  grid-template-areas: 
+    "btn1 btn2 btn3"
+    "btn4 btn5 btn5";
+  gap: 1.25rem;
+  column-gap: 3.125rem;
+  
+  @media (max-width: 778px) {
+    padding: 0 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    grid-template-areas: 
+      "btn1 btn2"
+      "btn3 btn4"
+      "btn5 btn5";
+    gap: 1.25rem;
+    column-gap: 1.563rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.813rem;
+  }
 }
 
 .btn {
-  padding: 10px 45px;
+  padding: 0.625rem 2.5rem;
   background: #fff;
   color: #5f5f5f;
-  border-radius: 30px;
+  border-radius: 1.875rem;
   border: none;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 1.25rem;
+  line-height: 1.875rem;
   cursor: pointer;
   outline: none;
+  white-space: nowrap;
+  text-align: center;
+
+   &:nth-child(1) {
+    grid-area: btn1;
+    margin-left: 3.125rem;
+  }
+
+  &:nth-child(2) {
+    grid-area: btn2;
+  }
+
+  &:nth-child(3) {
+    grid-area: btn3;
+    margin-right: 3.125rem;
+  }
+
+   &:nth-child(4) {
+    grid-area: btn4;
+    margin-right: -5rem;
+    margin-left: 1.875rem;
+  }
+
+  &:nth-child(5) {
+    grid-area: btn5;
+    margin-left: 4.375rem;
+    margin-right: 1.875rem;
+  }
+
   &:hover {
     background: #ffcd00;
     color: #000;
   }
-}
 
-.btnsWrap {
-  width: 742px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 30px;
-}
+  @media (max-width: 778px) {
 
-.firstBtnsWrap {
-  display: flex;
-  justify-content: center;
-  padding: 0 10px;
-}
+    &:nth-child(1) {
+      grid-area: btn1;
+      margin-left: -2.188rem;
+    }
 
+    &:nth-child(2) {
+      grid-area: btn2;
+      margin-right: -2.188rem;
+    }
 
-.secondBtnsWrap {
-  display: flex;
-  margin-top: 20px;
+    &:nth-child(3) {
+      grid-area: btn3;
+      margin-right: 1.875rem;
+      margin-left: -2.813rem;
+    }
+
+    &:nth-child(4) {
+      grid-area: btn4;
+      margin-right: -2.813rem;
+      margin-left: -1.875rem;
+    }
+
+    &:nth-child(5) {
+      grid-area: btn5;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 0px 1.563rem;
+    font-size: 0.813rem;
+  }
 }
