@@ -67,7 +67,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         </label>
         <input
           id="salary"
-          {...register('salary', { required: true })}
+          {...register('salary', { required: false })}
           placeholder="1000$"
           className={styles.input}
         />

@@ -6,10 +6,11 @@ import Values from "@/components/Modules/Values/Values";
 import Team from "@/components/Modules/Team/Team";
 import Faq from "@/components/Modules/Faq/Faq";
 import Office from "@/components/Modules/Office/Office";
+import Layout from "./layout";
 
 export default function Career() {
     return (
-        <main className={styles.app}>
+        <>
             <Jobs/>
             <AboutUs/>
             <WhyUs/>
@@ -17,6 +18,6 @@ export default function Career() {
             <Team/>
             <Faq/>
             <Office/>
-        </main>
+        </>
     )
 }

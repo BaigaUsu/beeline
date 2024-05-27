@@ -4,9 +4,12 @@ import styles from "./headerSecond.module.scss";
 import Link from "next/link";
 import Button from "@/components/UI/Button/Button";
 import { signOut, useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+
 
 export default function HeaderSecond() {
   const { data: session } = useSession();
+  const pathname = usePathname();
 
   return (
     <div className={styles.header}>
@@ -20,7 +23,12 @@ export default function HeaderSecond() {
             <li className={styles.listItem}>Услуги</li>
             <li className={styles.listItem}>Пополнение</li>
             <Link href='/admin' className={styles.listItem}>Роуминг</Link>
-            <Link href='/career' className={styles.listItem}>Карьера в Beeline</Link>
+            <Link
+              href='/career'
+              className={`${styles.listItem} ${pathname === '/career' ? styles.active : ''}`}
+            >
+              Карьера в Beeline
+            </Link>
             <li className={styles.listItem}>Регистрация номера</li>
           </ul>
         </div>

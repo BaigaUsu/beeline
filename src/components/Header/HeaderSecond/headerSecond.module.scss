@@ -1,8 +1,8 @@
 .header {
-  display: flex;
-  align-items: center;
+  display: flex; 
+  align-items: center;  
   justify-content: center;
-  padding: 18px 0;
+  padding: 1.125rem 1.25rem;
   background: #fff;
 }
 
@@ -23,14 +23,41 @@
 .list {
   display: flex;
   align-items: center;
-  margin-left: 24px;
+  margin-left: 1.5rem;
   list-style-type: none;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 23.04px;
+
+  @media (max-width: 1024px) {
+    margin-left: 0.800rem;
+  }
+
+  @media (max-width: 900px) {
+    font-size: 0.875rem;
+  }
 }
 
-.listItem:not(:last-child) {
-  margin-right: 22px;
+.listItem {
+  position: relative;
+  padding-bottom: 5px;
+
+  &:not(:last-child) {
+    margin-right: 1.375rem;
+
+    @media (max-width: 1024px) {
+      margin-right: 1rem;
+    }
+  }
+
+  &.active::after {
+    content: "";
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #ffdd00; 
+  }
 }
 
 .logInWrap {
@@ -39,5 +66,17 @@
 }
 
 .btn {
-  margin-left: 48px;
+  margin-left: 3rem;
+
+  @media (max-width: 1024px) {
+    margin-left: 1.30rem;
+  }
+  
+  
 }
+
+@media (max-width: 834px) {
+    .header {
+      display: none;
+    }
+  }
