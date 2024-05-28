@@ -9,7 +9,6 @@ import styles from "./team.module.scss";
 import '../../../app/career/global.css'
 import Image from "next/image";
 import { useRef, useState, useEffect } from 'react';
-import type { Swiper as SwiperType } from 'swiper';
 import { RefObject } from 'react';
 import type { SwiperRef } from 'swiper/react';
 
@@ -18,30 +17,11 @@ export default function Team() {
   const [swiperIndex, setSwiperIndex] = useState(1);
   const prevButtonRef = useRef<HTMLDivElement | null>(null);
   const nextButtonRef = useRef<HTMLDivElement | null>(null);
-
-  const updateRootStyles = () => {
-    const root = document.documentElement;
-    if (window.innerWidth <= 499) {
-      root.style.setProperty('--swiper-navigation-sides-offset', '190px');
-    } else if (window.innerWidth <= 768) {
-      root.style.setProperty('--swiper-navigation-sides-offset', '210px');
-    } else if (window.innerWidth <= 992) {
-      root.style.setProperty('--swiper-navigation-sides-offset', '210px');
-    } else if (window.innerWidth <= 1200) {
-      root.style.setProperty('--swiper-navigation-sides-offset', '250px');
-    } else {
-      root.style.setProperty('--swiper-navigation-sides-offset', '300px');
-    }
-  };
-
-  useEffect(() => {
-    updateRootStyles();
-    window.addEventListener('resize', updateRootStyles);
-
-    return () => {
-      window.removeEventListener('resize', updateRootStyles);
-    };
-  }, []);
+  const rootStyles = {
+  '--swiper-theme-color': 'rgb(153, 153, 153)',
+  '--swiper-navigation-size': '0px',
+  '--swiper-navigation-sides-offset': '310px',
+  } as React.CSSProperties;
 
   useEffect(() => {
   if (swiperRef.current) {
@@ -65,7 +45,7 @@ export default function Team() {
       <Title>
         Команда <span className={styles.titleText}>Beeline</span>
       </Title>
-      <div className={styles.carouselWrap} >
+      <div className={styles.carouselWrap} style={rootStyles}>
         <Swiper
           centeredSlides={true}
           initialSlide={1}
