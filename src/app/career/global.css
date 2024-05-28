@@ -1,3 +1,25 @@
+:root {
+  --swiper-theme-color: rgb(153, 153, 153);
+  --swiper-navigation-size: 0px;
+  --swiper-navigation-sides-offset: 310px;
+
+  @media (max-width: 1200px) {
+    --swiper-navigation-sides-offset: 270px;
+  }
+
+  @media (max-width: 992px) {
+    --swiper-navigation-sides-offset: 230px;
+  }
+
+  @media (max-width: 768px) {
+    --swiper-navigation-sides-offset: 190px;
+  }
+
+  @media (max-width: 576px) {
+    --swiper-navigation-sides-offset: 150px;
+  }
+}
+
 .app {
     background: #f6f6f6;
     margin: 0 auto;
@@ -8,7 +30,7 @@
         position: absolute;
         background-size: contain;
         background-repeat: no-repeat;
-        pointer-events: none; // Ensure background elements do not interfere with content interactions
+        pointer-events: none; 
 
         &.left1 {
             width: 423px;
@@ -61,7 +83,7 @@
             background-image: url('/jobsIcons/icon-right.svg');
         }
 
-        @media (max-width: 778px) {
+        @media (max-width: 834px) {
             display: none;
         }
     }

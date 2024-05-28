@@ -1,6 +1,6 @@
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import styles from './global.module.scss';
+import './global.css'; // Импортируем как обычный CSS
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,15 +8,15 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className={styles.app}>
+    <div className="app">
       <Header />
 
-      <div className={`${styles.background} ${styles.left1}`}></div>
-      <div className={`${styles.background} ${styles.left2}`}></div>
-      <div className={`${styles.background} ${styles.left3}`}></div>
-      <div className={`${styles.background} ${styles.right1}`}></div>
-      <div className={`${styles.background} ${styles.right2}`}></div>
-      <div className={`${styles.background} ${styles.right3}`}></div>
+      <div className="background left1"></div>
+      <div className="background left2"></div>
+      <div className="background left3"></div>
+      <div className="background right1"></div>
+      <div className="background right2"></div>
+      <div className="background right3"></div>
 
       {children}
 
