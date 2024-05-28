@@ -9,10 +9,13 @@ import styles from "./team.module.scss";
 import '../../../app/career/global.css'
 import Image from "next/image";
 import { useRef, useState, useEffect } from 'react';
+import type { Swiper as SwiperType } from 'swiper';
+import { RefObject } from 'react';
+import type { SwiperRef } from 'swiper/react';
 
 export default function Team() {
+  const swiperRef: RefObject<SwiperRef> = useRef<SwiperRef>(null);
   const [swiperIndex, setSwiperIndex] = useState(1);
-  const swiperRef = useRef<SwiperType | null>(null);
   const prevButtonRef = useRef<HTMLDivElement | null>(null);
   const nextButtonRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,17 +44,21 @@ export default function Team() {
   }, []);
 
   useEffect(() => {
-    if (swiperRef.current) {
-      const swiperInstance = swiperRef.current.swiper;
-      swiperInstance.params.navigation.prevEl = prevButtonRef.current;
-      swiperInstance.params.navigation.nextEl = nextButtonRef.current;
+  if (swiperRef.current) {
+    const swiperInstance = swiperRef.current.swiper;
+    const navigationOptions = swiperInstance.params.navigation;
+
+    if (typeof navigationOptions === 'object' && navigationOptions !== null) {
+      navigationOptions.prevEl = prevButtonRef.current;
+      navigationOptions.nextEl = nextButtonRef.current;
 
       // Reinitialize navigation
       swiperInstance.navigation.destroy();
       swiperInstance.navigation.init();
       swiperInstance.navigation.update();
     }
-  }, [prevButtonRef, nextButtonRef]);
+  }
+}, [prevButtonRef, nextButtonRef]);
 
   return (
     <div className={styles.wrap}>
@@ -68,12 +75,16 @@ export default function Team() {
           modules={[Navigation]}
           speed={600}
           grabCursor={true}
-          onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={(swiper) => setSwiperIndex(swiper.realIndex)}
           navigation={{
             prevEl: prevButtonRef.current,
             nextEl: nextButtonRef.current,
           }}
+          onSwiper={(swiper) => {
+          if (swiperRef.current) {
+            swiperRef.current.swiper = swiper;
+          }
+        }}
           ref={swiperRef}
         >
           <div ref={prevButtonRef} className="swiper-button-prev">
