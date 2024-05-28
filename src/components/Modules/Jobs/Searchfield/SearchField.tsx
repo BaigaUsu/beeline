@@ -7,8 +7,6 @@ import Link from "next/link";
 export default function SearchField() {
   return (
     <>
-      <Image src='/jobsIcons/ellipseFirstIcon.svg' alt="" className={styles.firstEllipse} width="431" height="557"/>
-      <Image src='/jobsIcons/ellipseSecondIcon.svg' alt="" className={styles.secondEllipse} width="317" height="809"/>
       <div className={styles.titleWrap}>
         <MainTitle>
           Работа с <span className={styles.titleSpan}>Beeline</span>

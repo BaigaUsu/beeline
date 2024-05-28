@@ -9,6 +9,8 @@
   border-bottom: 1px solid #e8e8e8;
   background: #fff;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 900px) {
     font-size: 0.775rem;

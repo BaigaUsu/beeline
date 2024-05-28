@@ -2,4 +2,67 @@
     background: #f6f6f6;
     margin: 0 auto;
     max-width: 1440px;
+    position: relative;
+
+    .background {
+        position: absolute;
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none; // Ensure background elements do not interfere with content interactions
+
+        &.left1 {
+            width: 423px;
+            height: 812px;
+            top: 2rem;
+            left: -2rem;
+            transform: rotate(10deg);
+            background-image: url('/jobsIcons/ellipseFirstIcon.svg');
+        }
+
+        &.left2 {
+            width: 423px;
+            height: 812px;
+            top: 2809px;
+            left: -10rem;
+            transform: rotate(-30deg);
+            background-image: url('/jobsIcons/ellipseFirstIcon.svg');
+        }
+
+        &.left3 {
+            width: 323px;
+            height: 612px;
+            top: 5452px;
+            left: -6rem;
+            transform: rotate(-35deg);
+            background-image: url('/jobsIcons/ellipseFirstIcon.svg');
+        }
+
+        &.right1 {
+            width: 423px;
+            height: 812px;
+            right: -7rem;
+            top: 19.25rem;
+            background-image: url('/jobsIcons/ellipseSecondIcon.svg');
+        }
+
+        &.right2 {
+            width: 398px;
+            height: 712px;
+            right: -14rem;
+            top: 2328px;
+            background-image: url('/jobsIcons/ellipseSecondIcon.svg');
+        }
+
+        &.right3 {
+            width: 300px;
+            height: 504px;
+            right: 0;
+            top: 4404px;
+            background-image: url('/jobsIcons/icon-right.svg');
+        }
+
+        @media (max-width: 778px) {
+            display: none;
+        }
+    }
 }
