@@ -3,7 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  padding: 0 20px;
+  position: relative; 
+  z-index: 1;
 }
 
 .iconsWrap {
@@ -11,15 +13,103 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 81px;
-  .iconsFirst {
-    margin-bottom: 100px;
+  margin-top: clamp(40px, 10vw, 81px);
+  gap: clamp(50px, 10vw, 100px);
+  padding-right: 20px;
+
+  @media (max-width: 768px) {
+    display: block;
+    margin-top: 30px;
+  }
+  
+  .iconsFirst, .iconsSecond {
+    gap: clamp(50px, 10vw, 100px);
+    display: flex;
+    justify-content: center;
+   
+    @media (max-width: 768px) {
+      display: block;
+    }
   }
 }
 
-.icon:not(:nth-child(3)) {
-  margin-right: 150px;
+.circleContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: clamp(100px, 20vw, 200px);
+  height: clamp(100px, 20vw, 200px);
+  border-radius: 50%;
+  background-color: #FFCC33;
+  margin: 0 clamp(15px, 3vw, 25px);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  
+  @media (max-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    border-radius: 50px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+  }
+  
+  &:hover {
+    transform: scale(1.3);
+    
+    @media (max-width: 768px) {
+      transform: none;
+    }
+  }
+  
+  &:hover .icon {
+    transform: translateY(-35px);
+    
+    @media (max-width: 768px) {
+      transform: none;
+    }
+  }
+  
+  &:hover .iconText {
+    opacity: 1;
+    
+    @media (max-width: 768px) {
+      opacity: 1;
+    }
+  }
 }
-.icon:last-child {
-  margin-right: 0;
+
+.icon {
+  transition: transform 0.3s ease;
+  display: block;
+  width: clamp(50px, 7vw, 80px);
+  height: clamp(50px, 7vw, 80px);
+  
+  @media (max-width: 768px) {
+    margin-right: 20px;
+  }
+}
+
+.iconText {
+  position: absolute;
+  bottom: clamp(20px, 5vw, 30px);
+  font-size: clamp(10px, 2vw, 18px);
+  font-weight: bold;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  width: 60%;
+  
+  @media (max-width: 768px) {
+    position: static;
+    opacity: 1;
+    color: #000000;
+    text-align: left;
+    width: auto;
+    font-size: 14px;
+  }
 }
