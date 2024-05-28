@@ -9,7 +9,6 @@ import styles from "./team.module.scss";
 import '../../../app/career/global.css'
 import Image from "next/image";
 import { useRef, useState, useEffect } from 'react';
-import type { Swiper as SwiperType } from 'swiper';
 
 export default function Team() {
   const [swiperIndex, setSwiperIndex] = useState(1);
