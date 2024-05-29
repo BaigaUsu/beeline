@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState } from 'react';
 import styles from './faq-message.module.scss';
@@ -13,7 +13,9 @@ export default function FaqMessage({ children }: { children: string }) {
       <button className={styles.question} onClick={toggleOpen}>
         {children} <span>{isOpen ? '-' : '+'}</span>
       </button>
-      {isOpen && <div className={styles.answer}>Здесь будет ответ на этот вопрос</div>}
+      <div className={`${styles.answer} ${isOpen ? styles.answerVisible : ''}`}>
+        Здесь будет ответ на этот вопрос
+      </div>
     </div>
   );
 }
