@@ -5,6 +5,7 @@
   position: relative;
   padding: 1.563rem 2rem;
   transition: 0.5s ease-in-out;
+  box-shadow: 0 0 0.875rem rgba(0, 0, 0, 0.3);
   &:hover {
     transform: scale(1.08);
     transition: 0.5s ease-in-out;

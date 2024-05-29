@@ -1,13 +1,17 @@
 .wrap {
   display: flex;
+  gap: 10px;
+  justify-content: space-between;
 }
 
 .list {
-    width: 270px;
+  list-style-type: none;
+  padding: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 
 .list:not(:last-child) {
-    margin-right: 15px;
+  margin-left: 0px;
 }
 
 .title {
@@ -24,5 +28,45 @@
 }
 
 .listItem:not(:last-child) {
-  margin-bottom: 32px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 736px) {
+  .wrap {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .listContainer {
+    border-bottom: 1px solid #414041;
+  }
+
+  .list {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0;
+  }
+
+  .list.expanded {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .title {
+    padding-bottom: 21px;
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  .title::after {
+    content: '>';
+    position: absolute; 
+    right: 30px;
+    transition: transform 0.3s ease;
+  }
+
+  .listItem {
+    margin-bottom: 10px;
+  }
 }

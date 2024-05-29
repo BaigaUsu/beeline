@@ -6,7 +6,7 @@
   width: 90%; 
   max-width: 925px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1.25rem;
 }
 
 .title {
@@ -15,12 +15,15 @@
 }
 
 .list {
-  margin-top: 70px;
+  margin-top: 4.375rem;
   list-style-type: none;
   padding: 0;
   width: 100%;
+  @media (max-width: 778px) {
+    margin-top: 1.25rem;
+  }
 }
 
 .listItem {
-  margin-bottom: 11px;
+  margin-bottom: 0.688rem;
 }

@@ -1,18 +1,36 @@
 .wrap {
   border-top: 1px solid #424242;
   border-bottom: 1px solid #424242;
-  padding: 28px 0;
-  margin-top: 75px;
+  padding: 23px 0;
+  margin-top: 50px;
   display: flex;
   align-items: center;
+  gap: 5px;
+  width: 100%;
+  @media (max-width: 1092px) {
+    flex-direction: column;
+  }
 }
 
 .iconsWrap {
   display: flex;
   align-items: center;
-  margin-right: 113.5px;
+  margin-right: 114px;
   .icon:not(:last-child) {
     margin-right: 25px;
+    @media (max-width: 568px) {
+    margin-right: 20px;
+  }
+  }
+  @media (max-width: 1200px) {
+    margin-left: 54px;
+    margin-right: 60px;
+  }
+  @media (max-width: 1092px) {
+    margin-bottom: 45px;
+  }
+  @media (max-width: 568px) {
+    margin-bottom: 25px;
   }
 }
 
@@ -23,7 +41,9 @@
     display: flex;
     align-items: center;
     font-size: 14px;
+    font-weight: 600;
     line-height: 21px;
+    text-decoration: underline;
     color: #fff;
     .linkIcon {
       margin-right: 5px;
@@ -32,10 +52,21 @@
   .contact:not(:last-child) {
     margin-right: 17.61px;
   }
+  @media (max-width: 1092px) {
+    margin-bottom: 14px;
+    margin-right: 0;
+  }
 }
 
 .forOtherCompanies {
   color: #fff;
   font-size: 14px;
   line-height: 21px;
+  font-weight: 600;
+  @media (max-width: 1092px) {
+    p {
+      display: inline;
+    }
+  }
+  
 }

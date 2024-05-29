@@ -12,7 +12,6 @@ export default function IconsBar() {
         <Image src='/footer-icons/twitter-icon.svg' alt='' width='32' height='32' className={styles.icon} />
         <Image src='/footer-icons/whatsapp-icon.svg' alt='' width='32' height='32' className={styles.icon} />
         <Image src='/footer-icons/facebook-icon.svg' alt='' width='32' height='32' className={styles.icon} />
-
       </div>
       <div className={styles.contactsWrap}>
         <div className={styles.contact}>

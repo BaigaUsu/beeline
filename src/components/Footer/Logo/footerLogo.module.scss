@@ -2,10 +2,26 @@
   display: flex;
   margin-top: 74px;
   align-items: center;
+  @media (max-width: 736px) {
+    flex-direction: column-reverse;
+    gap: 30px;
+    margin-top: 35px;
+    justify-content: center;
+  }
 }
 
 .footerLogoIcon {
   margin-right: 73px;
+  display: flex;
+  align-items: flex-end;
+
+  span {
+    margin-left: 73px;
+    font-weight: 600;
+  }
+  @media (max-width: 736px) {
+    margin-right: 0;
+  }
 }
 
 .text {
@@ -16,9 +32,10 @@
 
 .iconsWrap {
   display: flex;
-  margin-left: 200px;
+  margin-left: 125px;
+  gap: 20px;
+  @media (max-width: 736px) {
+    margin-left: 0;
+  }
 }
 
-.playMarketIcon {
-  margin-right: 20px;
-}

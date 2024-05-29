@@ -11,10 +11,6 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
-
-  @media (max-width: 900px) {
-    font-size: 0.775rem;
-  }
 }
 
 .container {
@@ -38,20 +34,12 @@
 
 .listItem:not(:last-child) {
   margin-right: 2.4375rem;
-
-  @media (max-width: 1024px) {
-    margin-right: 1.4375rem;
-  }
 }
 
 .settings {
   display: flex;
   align-items: center;
   gap: 2.4375rem;
-
-  @media (max-width: 1024px) {
-    gap: 1.4375rem;
-  }
 }
 
 .types {
@@ -62,7 +50,7 @@
   color: #121212;
 }
 
-@media (max-width: 834px) {
+@media (max-width: 1024px) {
     .wrap {
       display: none;
     }
