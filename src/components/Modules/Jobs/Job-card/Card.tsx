@@ -9,10 +9,13 @@ interface Job {
   name: string;
   city: number;
   description: string;
-
 }
 
-export default function JobList() {
+interface JobListProps {
+  searchTerm: string;
+}
+
+export default function JobList({ searchTerm }: JobListProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
@@ -34,9 +37,15 @@ export default function JobList() {
     }
   };
 
+  const filteredJobs = jobs.filter(job =>
+    job.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.city.toString().includes(searchTerm)
+  );
+
   return (
     <>
-      {jobs.map((job, index) => (
+      {filteredJobs.map((job, index) => (
         <JobCard
           key={index}
           name={job.name}

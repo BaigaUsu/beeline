@@ -1,19 +1,29 @@
 'use client'
-
 import React, { useState } from "react";
 import styles from "./searchbar.module.scss";
 import Image from "next/image";
 
-export const UiSearchBar: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+interface UiSearchBarProps {
+  setSearchTerm: (term: string) => void;
+}
 
-  const handleSearch = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log("Searching for:", searchTerm);
+export const UiSearchBar: React.FC<UiSearchBarProps> = ({ setSearchTerm }) => {
+  const [searchTerm, setLocalSearchTerm] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const term = event.target.value;
+    setLocalSearchTerm(term);
+    setSearchTerm(term);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
   };
 
   return (
-    <div onSubmit={handleSearch} className={styles.form}>
+    <form className={styles.form}>
       <div className={styles.wrap}>
         <Image src='/jobsIcons/searchIcon.svg' alt="searchIcon" width="24" height="24" className={styles.logo}/>
         <input
@@ -21,10 +31,10 @@ export const UiSearchBar: React.FC = () => {
           placeholder="Frontend разработчик"
           className={styles.input}
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
       </div>
-    </div>
+    </form>
   );
 };
-

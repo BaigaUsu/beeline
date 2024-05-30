@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Button from '@/components/UI/Button/Button';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
 
 interface BurgerMenuProps {
   toggleMenu: () => void;
@@ -13,6 +14,7 @@ interface BurgerMenuProps {
 
 const BurgerMenu: React.FC<BurgerMenuProps> = ({ toggleMenu, isMenuOpen }) => {
   const pathname = usePathname();
+  const { data: session } = useSession();
   return (
     <div className={styles.mobileMenu}>
       <div className={`${styles.burgerMenu} ${isMenuOpen ? styles.open : ''}`} onClick={toggleMenu}>
@@ -21,9 +23,26 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ toggleMenu, isMenuOpen }) => {
         <span></span>
       </div>
       <Image src='/headerIcons/logo.svg' alt="" width={44} height={44} className={styles.logo} />
-      <Button className={styles.btn} variant="main">
-        Войти
-      </Button>
+      {session?.user?.role === 'admin' && (
+            <Link href='/admin'>
+              <Button className={styles.btn} variant="main">
+                Админка
+              </Button>
+            </Link>
+          )}
+          {session ? (
+            <Link href='#' onClick={() => signOut({ callbackUrl: "/" })}>
+              <Button className={styles.btn} variant="main">
+                Выйти
+              </Button>
+            </Link>
+          ) : (
+            <Link href='/api/auth/signin'>
+              <Button className={styles.btn} variant="main">
+                Войти
+              </Button>
+            </Link>
+          )}
       {isMenuOpen && (
         <nav className={styles.menuList}>
           <div>

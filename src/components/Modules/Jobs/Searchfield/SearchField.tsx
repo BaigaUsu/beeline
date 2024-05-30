@@ -1,10 +1,16 @@
+'use client'
+import React from 'react';
 import { UiSearchBar } from "@/components/UI/Searchbar/Searchbar";
 import { MainTitle } from "@/components/UI/Heading/Heading";
 import styles from "./searchField.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SearchField() {
+interface SearchFieldProps {
+  setSearchTerm: (term: string) => void;
+}
+
+export default function SearchField({ setSearchTerm }: SearchFieldProps) {
   return (
     <>
       <div className={styles.titleWrap}>
@@ -14,7 +20,7 @@ export default function SearchField() {
         <p className={styles.description}>найди работу прямо сейчас!</p>
       </div>
       <div>
-        <UiSearchBar />
+        <UiSearchBar setSearchTerm={setSearchTerm} />
       </div>
       <div className={styles.btnsWrapper}>
         <div className={styles.btnGrid}>
