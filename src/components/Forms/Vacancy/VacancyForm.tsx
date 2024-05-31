@@ -7,7 +7,7 @@ import styles from './vacancyForm.module.scss';
 import ApiUrl from '@/app/api/values';
 
 type FormData = {
-  name: string;
+  position: string;
   salary: string;
   jobType: string;
   description: string;
@@ -53,12 +53,18 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         <label htmlFor="position" className={styles.label}>
           Должность
         </label>
-        <select id="position" {...register('name', { required: true })} className={styles.select}>
+        <input
+          id="position"
+          {...register('position', { required: false })}
+          placeholder="Должность"
+          className={styles.input}
+        />
+        {/* <select id="position" {...register('name', { required: true })} className={styles.select}>
           <option className={styles.option} value="Frontend">Frontend</option>
           <option value="Backend">Backend</option>
           <option value="Другое">Другое</option>
-        </select>
-        {errors.name && <span className={styles.error}>This field is required</span>}
+        </select> */}
+        {errors.position && <span className={styles.error}>This field is required</span>}
       </div>
 
       <div className={styles.formGroup}>

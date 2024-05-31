@@ -1,7 +1,5 @@
 'use client'
-
-import VacancyList from '@/app/career/vacancies/[list]/ListUI/VacancyList';
-import Link from 'next/link';
+import VacancyItem from './ItemUI/VacancyItem';
 // import { useParams } from 'next/navigation';
 
 export default function ListPage () {
@@ -9,6 +7,6 @@ export default function ListPage () {
 //   const { jobId } = params;
 
   return (
-    <VacancyList/>
+    <VacancyItem/>
   );
 };

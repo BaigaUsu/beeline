@@ -27,7 +27,7 @@ export default function SearchField({ setSearchTerm }: SearchFieldProps) {
           <Link href="/career/call-center" className={`${styles.btn} ${styles.btn1}`}>Call - center</Link>
           <Link href="/career/call-center" className={styles.btn}>Стажировка</Link>
           <Link href="/career/call-center" className={styles.btn}>Промоутеры</Link>
-          <Link href="/career/vacancies/list" className={`${styles.btn} ${styles.widerBtn}`}>Экспертные вакансии</Link>
+          <Link href="/career/vacancies/category/list" className={`${styles.btn} ${styles.widerBtn}`}>Экспертные вакансии</Link>
           <Link href="/career/call-center" className={`${styles.btn} ${styles.widerBtn}`}>Офисы продаж и обслуживания</Link>
         </div>
       </div>
