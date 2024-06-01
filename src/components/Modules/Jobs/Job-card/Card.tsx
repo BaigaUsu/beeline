@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Button from "@/components/UI/Button/Button";
 import styles from "./card.module.scss";
 import Image from "next/image";
-import ApiUrl from '@/app/api/values';
+import ApiUrl from '@/app/api/apiList';
 import Link from 'next/link';
 
 interface Job {
@@ -12,19 +12,21 @@ interface Job {
   city: number;
   description: string;
   status: boolean;
+  category: number;
 }
 
 interface JobListProps {
   searchTerm: string;
   showAllJobs: boolean;
+  category: number | null;
 }
 
-export default function JobList({ searchTerm, showAllJobs }: JobListProps) {
+export default function JobList({ searchTerm, showAllJobs, category }: JobListProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     fetchJobs();
-  }, []);
+  }, [category]);
 
   const fetchJobs = async () => {
     try {
@@ -42,7 +44,8 @@ export default function JobList({ searchTerm, showAllJobs }: JobListProps) {
   };
 
   const filteredJobs = jobs.filter(job =>
-    job.status && // Filter by status
+    job.status && 
+    (!category || job.category === category) && 
     (job.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.city.toString().includes(searchTerm))

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './list.module.scss';
 import { MainTitle } from '@/components/UI/Heading/Heading';
 import Image from 'next/image';
-import ApiUrl from '@/app/api/values';
+import ApiUrl from '@/app/api/apiList';
 import Main from './Stages/Main';
 import { useParams } from 'next/navigation';
 

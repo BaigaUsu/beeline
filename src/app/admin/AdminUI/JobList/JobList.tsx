@@ -4,7 +4,7 @@ import styles from './jobList.module.scss';
 import JobItem from '../JobItem/JobItem';
 import Image from 'next/image';
 import Switch from 'react-switch';
-import ApiUrl from '@/app/api/values'; 
+import ApiUrl from '@/app/api/apiList'; 
 
 interface Job {
   id: number;

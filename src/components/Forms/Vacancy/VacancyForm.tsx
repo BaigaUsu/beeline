@@ -1,21 +1,22 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './vacancyForm.module.scss';
-import ApiUrl from '@/app/api/values';
+import ApiUrl from '@/app/api/apiList';
+import CategoryUrl from '@/app/api/apiCategory'; 
 
 type FormData = {
   position: string;
   salary: string;
   type: string;
   description: string;
-  level: string; 
+  level: string;
   number: number;
-  city: string; 
+  city: string;
   requirements: string;
-  offer: string; 
-  status: string; 
+  offer: string;
+  status: string;
   category: number;
 };
 
@@ -23,29 +24,50 @@ interface VacancyFormProps {
   className?: string;
 }
 
+interface Category {
+  id: number;
+  name: string;
+}
+
 const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(CategoryUrl);
+      const data: Category[] = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
 
   const onSubmit = async (data: FormData) => {
-  try {
-    const response = await fetch(ApiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch(ApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (response.ok) {
-      console.log('Form data submitted successfully');
-    } else {
-      console.error('Error submitting form data');
-      console.error('Server response:', await response.text());
+      if (response.ok) {
+        console.log('Form data submitted successfully');
+        window.location.reload(); 
+      } else {
+        console.error('Error submitting form data');
+        console.error('Server response:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form} method="post">
@@ -53,14 +75,16 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         <label htmlFor="category" className={styles.label}>
           Категории
         </label>
-        <input
-          id="category"
-          {...register('category', { required: false })}
-          placeholder="1000$"
-          className={styles.input}
-        />
+        <select id="category" {...register('category', { required: true })} className={styles.select}>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
         {errors.category && <span className={styles.error}>This field is required</span>}
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="position" className={styles.label}>
           Должность
@@ -71,11 +95,6 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           placeholder="Должность"
           className={styles.input}
         />
-        {/* <select id="position" {...register('name', { required: true })} className={styles.select}>
-          <option className={styles.option} value="Frontend">Frontend</option>
-          <option value="Backend">Backend</option>
-          <option value="Другое">Другое</option>
-        </select> */}
         {errors.position && <span className={styles.error}>This field is required</span>}
       </div>
 
@@ -86,7 +105,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         <input
           id="salary"
           {...register('salary', { required: false })}
-          placeholder="1000$"
+          placeholder="Зарплата"
           className={styles.input}
         />
         {errors.salary && <span className={styles.error}>This field is required</span>}
@@ -115,36 +134,42 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           className={styles.textarea}
         />
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="level" className={styles.label}>
           Уровень
         </label>
         <input id="level" {...register('level')} placeholder="Middle" className={styles.input} />
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="number" className={styles.label}>
           Номер вакансии
         </label>
         <input id="number" {...register('number', { valueAsNumber: true })} placeholder="367870" className={styles.input} />
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="city" className={styles.label}>
           Город
         </label>
-        <input id="city" {...register('city')} placeholder="Bishkek" className={styles.input} />
+        <input id="city" {...register('city')} placeholder="Город" className={styles.input} />
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="requirements" className={styles.label}>
           Требования
         </label>
         <textarea id="requirements" {...register('requirements')} placeholder="Требования к вакансии" className={styles.textarea} />
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="offer" className={styles.label}>
           Предложение
         </label>
         <textarea id="offer" {...register('offer')} placeholder="Что мы предлагаем" className={styles.textarea} />
       </div>
+
       <div className={styles.formGroup}>
         <label htmlFor="status" className={styles.label}>
           Статус

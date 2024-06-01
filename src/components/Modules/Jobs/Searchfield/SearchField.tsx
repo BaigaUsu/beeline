@@ -3,14 +3,24 @@ import React from 'react';
 import { UiSearchBar } from "@/components/UI/Searchbar/Searchbar";
 import { MainTitle } from "@/components/UI/Heading/Heading";
 import styles from "./searchField.module.scss";
-import Image from "next/image";
-import Link from "next/link";
+
+interface Category {
+  id: number;
+  name: string;
+}
 
 interface SearchFieldProps {
   setSearchTerm: (term: string) => void;
+  setCategory: (category: number | null) => void;
+  categories: Category[];
+  selectedCategory: number | null;
 }
 
-export default function SearchField({ setSearchTerm }: SearchFieldProps) {
+export default function SearchField({ setSearchTerm, setCategory, categories, selectedCategory }: SearchFieldProps) {
+  const handleCategoryClick = (categoryId: number) => {
+    setCategory(selectedCategory === categoryId ? null : categoryId);
+  };
+
   return (
     <>
       <div className={styles.titleWrap}>
@@ -24,11 +34,15 @@ export default function SearchField({ setSearchTerm }: SearchFieldProps) {
       </div>
       <div className={styles.btnsWrapper}>
         <div className={styles.btnGrid}>
-          <Link href="/career/call-center" className={`${styles.btn} ${styles.btn1}`}>Call - center</Link>
-          <Link href="/career/call-center" className={styles.btn}>Стажировка</Link>
-          <Link href="/career/call-center" className={styles.btn}>Промоутеры</Link>
-          <Link href="/career/vacancies/category/list" className={`${styles.btn} ${styles.widerBtn}`}>Экспертные вакансии</Link>
-          <Link href="/career/call-center" className={`${styles.btn} ${styles.widerBtn}`}>Офисы продаж и обслуживания</Link>
+          {categories.map(category => (
+            <button
+              key={category.id}
+              className={`${styles.btn} ${styles.btn1} ${selectedCategory === category.id ? styles.active : ''}`}
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
       </div>
     </>
