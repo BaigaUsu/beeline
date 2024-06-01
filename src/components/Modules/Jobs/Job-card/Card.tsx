@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import Button from "@/components/UI/Button/Button";
 import styles from "./card.module.scss";
@@ -11,13 +11,15 @@ interface Job {
   position: string;
   city: number;
   description: string;
+  status: boolean;
 }
 
 interface JobListProps {
   searchTerm: string;
+  showAllJobs: boolean;
 }
 
-export default function JobList({ searchTerm }: JobListProps) {
+export default function JobList({ searchTerm, showAllJobs }: JobListProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
@@ -26,28 +28,31 @@ export default function JobList({ searchTerm }: JobListProps) {
 
   const fetchJobs = async () => {
     try {
-  const response = await fetch(ApiUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const data: Job[] = await response.json();
-  setJobs(data);
-} catch (error) {
-  console.error('Error fetching jobs:', error);
-}
+      const response = await fetch(ApiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data: Job[] = await response.json();
+      setJobs(data);
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+    }
   };
 
   const filteredJobs = jobs.filter(job =>
-    job.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.city.toString().includes(searchTerm)
+    job.status && // Filter by status
+    (job.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.city.toString().includes(searchTerm))
   );
+
+  const jobsToDisplay = showAllJobs ? filteredJobs : filteredJobs.slice(0, 4);
 
   return (
     <>
-      {filteredJobs.map((job) => (
+      {jobsToDisplay.map((job) => (
         <JobCard
           key={job.id}
           id={job.id}
@@ -61,14 +66,13 @@ export default function JobList({ searchTerm }: JobListProps) {
 }
 
 export type JobCardProps = {
-  id: number
+  id: number;
   position: string;
-  city: string;
-  title: string;
+  city: number;
   description: string;
 };
 
-export function JobCard({ id, position, city, description }: Job) {
+export function JobCard({ id, position, city, description }: JobCardProps) {
   return (
     <div className={styles.wrap}>
       <p className={styles.city}>

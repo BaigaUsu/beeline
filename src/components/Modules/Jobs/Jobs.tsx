@@ -6,16 +6,22 @@ import SearchField from "./Searchfield/SearchField";
 import JobList from "./Job-card/Card";
 
 export default function Jobs() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [showAllJobs, setShowAllJobs] = useState<boolean>(false);
 
   return (
     <div className={styles.wrap}>
       <SearchField setSearchTerm={setSearchTerm} />
       <div className={styles.cardList}>
-        <JobList searchTerm={searchTerm} />
+        <JobList searchTerm={searchTerm} showAllJobs={showAllJobs} />
       </div>
       <div className={styles.vaccancyBtnWrap}>
-        <button className={styles.vaccancyBtn}>Все вакансии</button>
+        <button
+          className={styles.vaccancyBtn}
+          onClick={() => setShowAllJobs(!showAllJobs)}
+        >
+          {showAllJobs ? 'Скрыть вакансии' : 'Все вакансии'}
+        </button>
       </div>
     </div>
   );

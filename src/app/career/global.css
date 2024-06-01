@@ -13,7 +13,7 @@
         &.left1 {
             width: 423px;
             height: 812px;
-            top: 2rem;
+            top: 1rem;
             left: -2rem;
             transform: rotate(10deg);
             background-image: url('/jobsIcons/ellipseFirstIcon.svg');

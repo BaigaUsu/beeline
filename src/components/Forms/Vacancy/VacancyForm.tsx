@@ -1,4 +1,3 @@
-// vacancyForm.tsx
 'use client';
 
 import React from 'react';
@@ -9,7 +8,7 @@ import ApiUrl from '@/app/api/values';
 type FormData = {
   position: string;
   salary: string;
-  jobType: string;
+  type: string;
   description: string;
   level: string; 
   number: number;
@@ -17,6 +16,7 @@ type FormData = {
   requirements: string;
   offer: string; 
   status: string; 
+  category: number;
 };
 
 interface VacancyFormProps {
@@ -50,6 +50,18 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form} method="post">
       <div className={styles.formGroup}>
+        <label htmlFor="category" className={styles.label}>
+          Категории
+        </label>
+        <input
+          id="category"
+          {...register('category', { required: false })}
+          placeholder="1000$"
+          className={styles.input}
+        />
+        {errors.category && <span className={styles.error}>This field is required</span>}
+      </div>
+      <div className={styles.formGroup}>
         <label htmlFor="position" className={styles.label}>
           Должность
         </label>
@@ -81,15 +93,15 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
       </div>
 
       <div className={styles.formGroup}>
-        <label htmlFor="jobType" className={styles.label}>
+        <label htmlFor="type" className={styles.label}>
           Тип работы
         </label>
-        <select id="jobType" {...register('jobType', { required: true })} className={styles.select}>
-          <option value="Офис">Офис</option>
-          <option value="Дома">Дома</option>
-          <option value="На свалке">На свалке</option>
+        <select id="type" {...register('type', { required: true })} className={styles.select}>
+          <option value="офис">Офис</option>
+          <option value="дом">Дома</option>
+          <option value="свалка">Свалка</option>
         </select>
-        {errors.jobType && <span className={styles.error}>This field is required</span>}
+        {errors.type && <span className={styles.error}>This field is required</span>}
       </div>
 
       <div className={styles.formGroup}>
@@ -138,8 +150,8 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           Статус
         </label>
         <select id="status" {...register('status')} className={styles.select}>
-          <option value="open">Открыта</option>
-          <option value="closed">Закрыта</option>
+          <option value="true">Открыта</option>
+          <option value="false">Закрыта</option>
         </select>
       </div>
 

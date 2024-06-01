@@ -23,7 +23,8 @@
   // border-collapse: collapse;
 
   th{
-    padding: 20px;
+    vertical-align: top;
+    padding: 0 20px;
     text-align: left;
     border-bottom: 2px solid #FFD4A8;
   }
@@ -34,5 +35,23 @@
 
   tbody {
     padding: 20px;
+  }
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: start;
+  margin-bottom: 10px;
+
+  .filterElement {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+  }
+
+  .icon {
+    margin-top: 3px;
   }
 }
