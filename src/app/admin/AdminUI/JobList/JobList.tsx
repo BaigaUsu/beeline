@@ -4,7 +4,8 @@ import styles from './jobList.module.scss';
 import JobItem from '../JobItem/JobItem';
 import Image from 'next/image';
 import Switch from 'react-switch';
-import ApiUrl from '@/app/api/apiList'; 
+import ApiUrl from '@/app/api/apiList';
+import CategoryUrl from '@/app/api/apiCategory'; // Import the URL for fetching categories
 
 interface Job {
   id: number;
@@ -14,6 +15,12 @@ interface Job {
   type: string;
   number: string;
   status: boolean;
+  category: number;
+}
+
+interface Category {
+  id: number;
+  name: string;
 }
 
 interface JobListProps {
@@ -28,7 +35,9 @@ type SortConfig = {
 const JobList: React.FC<JobListProps> = ({ className }) => {
   const [globalActive, setGlobalActive] = useState(false);
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+  const [filterCategory, setFilterCategory] = useState<number | null>(null);
   const [filterType, setFilterType] = useState<string | null>(null);
   const [filterLevel, setFilterLevel] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<boolean | null>(null);
@@ -36,6 +45,7 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
 
   useEffect(() => {
     fetchJobs();
+    fetchCategories();
   }, []);
 
   const fetchJobs = async () => {
@@ -50,6 +60,21 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
       setJobs(data);
     } catch (error) {
       console.error('Error fetching jobs:', error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(CategoryUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data: Category[] = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
     }
   };
 
@@ -80,7 +105,7 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     setSortConfig({ key, direction });
   };
 
-  const handleFilterChange = (filter: 'type' | 'level' | 'status' | 'salary') => (
+  const handleFilterChange = (filter: 'type' | 'level' | 'status' | 'salary' | 'category') => (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const value = event.target.value;
@@ -92,6 +117,8 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
       setFilterStatus(value === 'true' ? true : value === 'false' ? false : null);
     } else if (filter === 'salary') {
       setFilterSalaryRange(value);
+    } else if (filter === 'category') {
+      setFilterCategory(value ? parseInt(value, 10) : null);
     }
   };
 
@@ -99,13 +126,20 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     return parseInt(salary.replace(/[^0-9]/g, ''), 10);
   };
 
-  const getSalaryRange = (range: string): [number, number] => {
+  const getSalaryRange = (range: string): [number, number] | string => {
+    if (range === "2000") {
+      return "2000+";
+    }
     const [min, max] = range.split('-').map(str => parseInt(str.replace(/[^0-9]/g, ''), 10));
     return [min, max];
   };
 
   const sortedJobs = React.useMemo(() => {
     let filteredJobs = jobs;
+
+    if (filterCategory !== null) {
+      filteredJobs = filteredJobs.filter(job => job.category === filterCategory);
+    }
 
     if (filterType) {
       filteredJobs = filteredJobs.filter(job => job.type === filterType);
@@ -120,10 +154,15 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     }
 
     if (filterSalaryRange) {
-      const [minSalary, maxSalary] = getSalaryRange(filterSalaryRange);
+      const salaryRange = getSalaryRange(filterSalaryRange);
       filteredJobs = filteredJobs.filter(job => {
         const salary = parseSalary(job.salary);
-        return salary >= minSalary && salary <= maxSalary;
+        if (salaryRange === "2000+") {
+          return salary > 2000;
+        } else {
+          const [minSalary, maxSalary] = salaryRange as [number, number];
+          return salary >= minSalary && salary <= maxSalary;
+        }
       });
     }
 
@@ -138,19 +177,24 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
       }
       return 0;
     });
-  }, [jobs, sortConfig, filterType, filterLevel, filterStatus, filterSalaryRange]);
+  }, [jobs, sortConfig, filterCategory, filterType, filterLevel, filterStatus, filterSalaryRange]);
 
   return (
     <div className={`${styles.jobList} ${className}`}>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th onClick={() => handleSort('position')}>
+            <th>
               <div className={styles.filterContainer}>
-                <div className={styles.filterElement}>
-                  Вакансия 
-                  <Image src='/admin-icons/icon-9.svg' alt='' width='14' height='14' className={styles.icon}/>
-                </div>
+                Категория
+                <select onChange={handleFilterChange('category')}>
+                  <option value="">Все</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </th>
             <th>
@@ -169,10 +213,11 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
                 Зарплата
                 <select onChange={handleFilterChange('salary')}>
                   <option value="">Все</option>
+                  <option value="1-100">1$ - 100$</option>
                   <option value="100-500">100$ - 500$</option>
                   <option value="500-1000">500$ - 1000$</option>
-                  <option value="1000-1500">1000$ - 1500$</option>
                   <option value="1500-2000">1500$ - 2000$</option>
+                  <option value="2000">2000$ и больше</option>
                 </select>
               </div>
             </th>

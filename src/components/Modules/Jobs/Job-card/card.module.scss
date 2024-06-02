@@ -6,6 +6,7 @@
   padding: 1.563rem 2rem;
   transition: 0.5s ease-in-out;
   box-shadow: 0 0 0.875rem rgba(0, 0, 0, 0.3);
+  display: flex;
   &:hover {
     transform: scale(1.08);
     transition: 0.5s ease-in-out;
@@ -37,9 +38,10 @@
 
 .contentWrap {
   display: flex;
-  align-items: center;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .title {
@@ -62,9 +64,14 @@
   margin-top: 0.938rem;
   margin-bottom: 1.875rem;
   text-align: center;
+  // flex-grow: 1;
 
   @media (max-width: 576px) {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
+}
+
+.buttonWrapper {
+  margin-top: auto;
 }

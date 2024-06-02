@@ -6,10 +6,38 @@ import Button from "@/components/UI/Button/Button";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
+const LOGOUT_API_URL = 'https://c9c73b99062fa514bc02c3904773fe58.serveo.net/api/v1/auth/logout/';
 
 export default function HeaderSecond() {
   const { data: session } = useSession();
   const pathname = usePathname();
+
+  const handleSignOut = async () => {
+    if (session?.user?.token) {
+      console.log('Attempting to log out from Django with token:', session.user.token);
+
+      try {
+        const response = await fetch(LOGOUT_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${session.user.token}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error('Failed to logout from Django:', response.status, response.statusText);
+        } else {
+          const data = await response.json();
+          console.log('Logout successful:', data);
+        }
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
+    }
+
+    signOut({ callbackUrl: '/' });
+  };
 
   return (
     <div className={styles.header}>
@@ -35,7 +63,7 @@ export default function HeaderSecond() {
 
         <div className={styles.logInWrap}>
           <Image src='/headerIcons/searchIcon.svg' alt="" width={24} height={24} />
-          {session?.user?.role === 'admin' && (
+          {session && (
             <Link href='/admin'>
               <Button className={styles.btn} variant="main">
                 Админка
@@ -43,7 +71,7 @@ export default function HeaderSecond() {
             </Link>
           )}
           {session ? (
-            <Link href='#' onClick={() => signOut({ callbackUrl: "/" })}>
+            <Link href='#' onClick={handleSignOut}>
               <Button className={styles.btn} variant="main">
                 Выйти
               </Button>

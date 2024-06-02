@@ -1,15 +1,36 @@
 .jobItem {
   width: 100%;
+  table-layout: fixed;
+
   td {
-    padding: 20px;
+    padding: 10px 20px;
   }
 
-  // .status {
-  //   display: flex;
-  //   align-items: center;
+  .position {
+    width: 20%;
+  }
 
-  //   input {
-  //     margin-right: 10px;
-  //   }
-  // }
+  .level {
+    width: 15%;
+  }
+
+  .salary {
+    width: 15%;
+  }
+
+  .type {
+    width: 15%;
+  }
+
+  .number {
+    width: 10%;
+  }
+
+  .switch {
+    width: 10%;
+  }
+
+  .status {
+    width: 15%;
+  }
 }

@@ -1,5 +1,4 @@
-// components/Login.tsx
-'use client'
+'use client';
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
@@ -8,7 +7,7 @@ import styles from './login.module.scss';
 import { useRouter } from 'next/navigation';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -19,14 +18,15 @@ const Login = () => {
 
     const result = await signIn('credentials', {
       redirect: false,
-      email,
+      phone,
       password,
     });
+
+    console.log('Sign-in result:', result);
 
     if (result?.error) {
       setError(result.error);
     } else {
-      // Optionally handle successful login
       router.push('/');
     }
   };
@@ -39,10 +39,10 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
               <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="tel"
+                placeholder="Телефон"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 required
               />
             </div>
@@ -74,4 +74,3 @@ const Login = () => {
 };
 
 export default Login;
-``

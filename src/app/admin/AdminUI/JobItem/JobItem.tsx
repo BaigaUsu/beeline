@@ -32,15 +32,15 @@ const JobItem: React.FC<JobProps> = ({ id, position, level, salary, type, number
 
   return (
     <tr className={styles.jobItem}>
-      <td>{position}</td>
-      <td>{level}</td>
-      <td>{salary}</td>
-      <td>{capitalizeFirstLetter(type)}</td>
-      <td>{number}</td>
-      <td>
+      <td className={styles.position}>{position}</td>
+      <td className={styles.level}>{level}</td>
+      <td className={styles.salary}>{salary}</td>
+      <td className={styles.type}>{capitalizeFirstLetter(type)}</td>
+      <td className={styles.number}>{number}</td>
+      <td className={styles.switch}>
         <Switch onChange={handleToggle} checked={isActive} checkedIcon={false} uncheckedIcon={false} onColor="#ff9800" offColor="#ccc" />
       </td>
-      <td>{isActive ? 'Активен' : 'Неактивен'}</td>
+      <td className={styles.status}>{isActive ? 'Активен' : 'Неактивен'}</td>
     </tr>
   );
 };

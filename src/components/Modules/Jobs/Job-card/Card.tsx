@@ -85,7 +85,7 @@ export function JobCard({ id, position, city, description }: JobCardProps) {
       <div className={styles.contentWrap}>
         <h4 className={styles.title}>{position}</h4>
         <p className={styles.description}>{description}</p>
-        <Link href={`/career/vacancies/item/${id}`}>
+        <Link className={styles.buttonWrapper} href={`/career/vacancies/item/${id}`}>
           <Button variant="more">Подробнее</Button>
         </Link>
       </div>
