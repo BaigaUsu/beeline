@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 import styles from './vacancyForm.module.scss';
 import ApiUrl from '@/app/api/apiList';
-import CategoryUrl from '@/app/api/apiCategory'; 
+import CategoryUrl from '@/app/api/apiCategory';
 
 type FormData = {
   position: string;
@@ -31,6 +32,7 @@ interface Category {
 
 const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const { data: session } = useSession();
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -53,13 +55,14 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Token ${session?.user.token}`,
         },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
         console.log('Form data submitted successfully');
-        window.location.reload(); 
+        window.location.reload();
       } else {
         console.error('Error submitting form data');
         console.error('Server response:', await response.text());
@@ -91,7 +94,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         </label>
         <input
           id="position"
-          {...register('position', { required: false })}
+          {...register('position', { required: true })}
           placeholder="Должность"
           className={styles.input}
         />
@@ -104,7 +107,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         </label>
         <input
           id="salary"
-          {...register('salary', { required: false })}
+          {...register('salary', { required: true })}
           placeholder="Зарплата"
           className={styles.input}
         />

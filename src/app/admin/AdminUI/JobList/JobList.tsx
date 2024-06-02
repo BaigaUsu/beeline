@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Switch from 'react-switch';
 import ApiUrl from '@/app/api/apiList';
 import CategoryUrl from '@/app/api/apiCategory'; // Import the URL for fetching categories
+import { getSession, useSession } from 'next-auth/react';
 
 interface Job {
   id: number;
@@ -33,6 +34,7 @@ type SortConfig = {
 };
 
 const JobList: React.FC<JobListProps> = ({ className }) => {
+  const { data: session } = useSession();
   const [globalActive, setGlobalActive] = useState(false);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -79,19 +81,23 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
   };
 
   const handleStatusChange = async (id: number, status: boolean) => {
-    try {
-      await fetch(`${ApiUrl}/${id}/`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
-      });
-      setJobs(jobs.map(job => job.id === id ? { ...job, status } : job));
-    } catch (error) {
-      console.error('Error updating job status:', error);
-    }
-  };
+  try {
+    const session = await getSession(); // Ensure session is fetched properly
+
+    await fetch(`${ApiUrl}/${id}/`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${session?.user.token}`, // Include the token in the header
+      },
+      body: JSON.stringify({ status }),
+    });
+    setJobs(jobs.map(job => job.id === id ? { ...job, status } : job));
+  } catch (error) {
+    console.error('Error updating job status:', error);
+  }
+};
+
 
   const handleGlobalToggle = () => {
     setGlobalActive(!globalActive);

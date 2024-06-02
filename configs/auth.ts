@@ -1,7 +1,7 @@
 import type { AuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
-const LOGIN_API_URL = 'https://eea93a50e6dc5aed989901546f5b9742.serveo.net/api/v1/auth/login/';
+const LOGIN_API_URL = 'https://ttraining548.pythonanywhere.com/api/v1/auth/login/';
 
 export const authConfig: AuthOptions = {
   providers: [
@@ -31,15 +31,14 @@ export const authConfig: AuthOptions = {
 
           const data = await response.json();
 
-          console.log('Login API response:', data);
-
           if (data.key) {
-            return {
+            const user = {
               id: data.user_id,
               phone: credentials.phone,
               role: data.role,
               token: data.key,
             };
+            return user;
           }
 
           return null;
@@ -55,18 +54,18 @@ export const authConfig: AuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      console.log('Session callback:', { session, token });
       if (token.role) {
-        session.user.role = token.role;
-        session.user.token = token.token;
+        session.user.role = token.role as string;
+      }
+      if (token.token) {
+        session.user.token = token.token as string;
       }
       return session;
     },
     async jwt({ token, user }) {
-      console.log('JWT callback:', { token, user });
       if (user) {
-        token.role = user.role;
-        token.token = user.token;
+        token.role = (user as any).role;
+        token.token = (user as any).token;
       }
       return token;
     },

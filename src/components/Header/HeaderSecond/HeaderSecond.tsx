@@ -6,7 +6,7 @@ import Button from "@/components/UI/Button/Button";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
-const LOGOUT_API_URL = 'https://c9c73b99062fa514bc02c3904773fe58.serveo.net/api/v1/auth/logout/';
+const LOGOUT_API_URL = 'https://ttraining548.pythonanywhere.com/api/v1/auth/logout/';
 
 export default function HeaderSecond() {
   const { data: session } = useSession();
