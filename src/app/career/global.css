@@ -65,14 +65,14 @@
             display: none;
         }
 
-        @media (min-height: 200px) {
+        @media (max-height: 2000px) {
             &.left3,
             &.right3 {
                 display: none;
             }
         }
 
-        @media (height: 500px) {
+        @media (max-height: 5000px) {
             &.left2,
             &.right2 {
                 display: none;
