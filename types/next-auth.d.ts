@@ -1,4 +1,3 @@
-// next-auth.d.ts
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
@@ -7,6 +6,7 @@ declare module "next-auth" {
       id: string;
       phone: string;
       token: string;
+      name?: string; // Add this line
       role?: string; 
     };
   }
@@ -15,6 +15,7 @@ declare module "next-auth" {
     id: string;
     phone: string;
     token: string;
+    name?: string; // Add this line
     role?: string; 
   }
 }
