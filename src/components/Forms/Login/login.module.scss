@@ -4,13 +4,14 @@
     align-items: center;
     background-color: #f5f5f5;
     padding: 70px 25px;   
+    
 }
 .container {
     display: flex;
     justify-content: space-between;
-    // align-items: end;
     max-width: 1176px;
     width: 100%;
+    position: relative;
 }
 
 .loginForm {
@@ -49,9 +50,9 @@
     text-decoration: underline;
 }
 
-.loginButton,
-.registerButton {
+.loginButton {
     width: 100%;
+    margin-top: 20px;
     padding: 20px;
     border: none;
     border-radius: 5px;

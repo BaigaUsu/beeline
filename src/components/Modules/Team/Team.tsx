@@ -6,7 +6,6 @@ import 'swiper/css';
 import { Navigation } from 'swiper/modules';
 import { Title } from "@/components/UI/Heading/Heading";
 import styles from "./team.module.scss";
-import '../../../app/career/global.css'
 import Image from "next/image";
 import { useRef, useState, useEffect } from 'react';
 import { RefObject } from 'react';
@@ -18,27 +17,27 @@ export default function Team() {
   const prevButtonRef = useRef<HTMLDivElement | null>(null);
   const nextButtonRef = useRef<HTMLDivElement | null>(null);
   const rootStyles = {
-  '--swiper-theme-color': 'rgb(153, 153, 153)',
-  '--swiper-navigation-size': '0px',
-  '--swiper-navigation-sides-offset': '310px',
+    '--swiper-theme-color': 'rgb(153, 153, 153)',
+    '--swiper-navigation-size': '0px',
+    '--swiper-navigation-sides-offset': '310px',
   } as React.CSSProperties;
 
   useEffect(() => {
-  if (swiperRef.current) {
-    const swiperInstance = swiperRef.current.swiper;
-    const navigationOptions = swiperInstance.params.navigation;
+    if (swiperRef.current) {
+      const swiperInstance = swiperRef.current.swiper;
+      const navigationOptions = swiperInstance.params.navigation;
 
-    if (typeof navigationOptions === 'object' && navigationOptions !== null) {
-      navigationOptions.prevEl = prevButtonRef.current;
-      navigationOptions.nextEl = nextButtonRef.current;
+      if (typeof navigationOptions === 'object' && navigationOptions !== null) {
+        navigationOptions.prevEl = prevButtonRef.current;
+        navigationOptions.nextEl = nextButtonRef.current;
 
-      // Reinitialize navigation
-      swiperInstance.navigation.destroy();
-      swiperInstance.navigation.init();
-      swiperInstance.navigation.update();
+        // Reinitialize navigation
+        swiperInstance.navigation.destroy();
+        swiperInstance.navigation.init();
+        swiperInstance.navigation.update();
+      }
     }
-  }
-}, [prevButtonRef, nextButtonRef]);
+  }, [prevButtonRef, nextButtonRef]);
 
   return (
     <div className={styles.wrap}>
@@ -61,50 +60,70 @@ export default function Team() {
             nextEl: nextButtonRef.current,
           }}
           onSwiper={(swiper) => {
-          if (swiperRef.current) {
-            swiperRef.current.swiper = swiper;
-          }
-        }}
+            if (swiperRef.current) {
+              swiperRef.current.swiper = swiper;
+            }
+          }}
           ref={swiperRef}
         >
           <div ref={prevButtonRef} className="swiper-button-prev">
             <Image src='/team-image/scroll-left.svg' alt='' className={styles.arrow1} width={80} height={80}/>
           </div>
           <SwiperSlide className={styles.image}>
-            <Image
-              src="/team-image/first-img.png"
-              alt="First"
-              layout="responsive"
-              width={820}
-              height={440}
-            />
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/team-image/first-img.png"
+                alt="First"
+                fill
+                className={styles.imageFill}
+              />
+              <div className={styles.overlay}></div>
+              <div className={styles.hoverText}>
+                Мы ежедневно решаем задачи, создаем новые проекты, совершаем маленькие подвиги, помогаем, учим и учимся друг у друга. Мы создали особенное приложение, с помощью которого можем выразить благодарность и признательность коллегам.
+              </div>
+            </div>
           </SwiperSlide>
           <SwiperSlide className={styles.image}>
-            <Image
-              src="/team-image/second.png"
-              alt="Second"
-              layout="responsive"
-              width={820}
-              height={440}
-            />
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/team-image/second.png"
+                alt="Second"
+                fill
+                className={styles.imageFill}
+              />
+              <div className={styles.overlay}></div>
+              <div className={styles.hoverText}>
+                Мы ежедневно решаем задачи, создаем новые проекты, совершаем маленькие подвиги, помогаем, учим и учимся друг у друга. Мы создали особенное приложение, с помощью которого можем выразить благодарность и признательность коллегам.
+              </div>
+            </div>
           </SwiperSlide>
           <SwiperSlide className={styles.image}>
-            <Image
-              src="/team-image/third.png"
-              alt="Third"
-              layout="responsive"
-              width={820}
-              height={440}
-            />
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/team-image/third.png"
+                alt="Third"
+                fill
+                className={styles.imageFill}
+              />
+              <div className={styles.overlay}></div>
+              <div className={styles.hoverText}>
+                Мы ежедневно решаем задачи, создаем новые проекты, совершаем маленькие подвиги, помогаем, учим и учимся друг у друга. Мы создали особенное приложение, с помощью которого можем выразить благодарность и признательность коллегам.
+              </div>
+            </div>
           </SwiperSlide>
           <SwiperSlide className={styles.image}>
-            <Image
-              src="/team-image/second.png"
-              alt="Second"
-              layout="responsive"
-              width={820}
-              height={440}
-            />
+            <div className={styles.imageWrapper}>
+              <Image
+                src="/team-image/second.png"
+                alt="Second"
+                fill
+                className={styles.imageFill}
+              />
+              <div className={styles.overlay}></div>
+              <div className={styles.hoverText}>
+                Мы ежедневно решаем задачи, создаем новые проекты, совершаем маленькие подвиги, помогаем, учим и учимся друг у друга. Мы создали особенное приложение, с помощью которого можем выразить благодарность и признательность коллегам.
+              </div>
+            </div>
           </SwiperSlide>
         </Swiper>
         <div ref={nextButtonRef} className="swiper-button-next">

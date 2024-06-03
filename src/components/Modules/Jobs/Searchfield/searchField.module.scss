@@ -67,10 +67,11 @@
   outline: none;
   white-space: nowrap;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 
    &:nth-child(1) {
     grid-area: btn1;
-    margin-left: 3.125rem;
+    margin-left: 2.125rem;
   }
 
   &:nth-child(2) {
@@ -79,19 +80,18 @@
 
   &:nth-child(3) {
     grid-area: btn3;
-    margin-right: 3.125rem;
+    margin-right: 2.125rem;
+    text-align: center;
   }
 
    &:nth-child(4) {
     grid-area: btn4;
     margin-right: -5rem;
-    margin-left: 1.875rem;
   }
 
   &:nth-child(5) {
     grid-area: btn5;
     margin-left: 4.375rem;
-    margin-right: 1.875rem;
   }
 
   &:hover {
@@ -137,6 +137,7 @@
 }
 
 .active {
-  background-color: #ffcd00; /* Example highlight color */
-  color: #111; /* Example text color for the active button */
+  background-color: #ffcd00; 
+  color: #000;
+  box-shadow: 0 0 0 2px #5f5f5f;
 }

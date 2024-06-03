@@ -62,7 +62,6 @@ const Login = () => {
             <button type="submit" className={styles.loginButton}>
               Войти
             </button>
-            <button className={styles.registerButton}>Регистрация</button>
           </form>
         </div>
         <div className={styles.illustration}>
