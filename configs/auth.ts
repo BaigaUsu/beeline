@@ -1,6 +1,8 @@
-import LOGIN_API_URL from '@/app/api/auth/[...nextauth]/loginApi';
 import type { AuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+
+const LOGIN_API_URL = 'https://ttraining548.pythonanywhere.com/api/v1/auth/login/'
+
 
 export const authConfig: AuthOptions = {
   providers: [

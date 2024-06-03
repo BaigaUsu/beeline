@@ -2,10 +2,7 @@ import Header from "./AdminUI/Header/Header";
 import JobList from "./AdminUI/JobList/JobList";
 import ListHead from "./AdminUI/JobListHead/ListHead";
 import Sidebar from "./AdminUI/Sidebar/Sidebar";
-// import Layout from "./layout";
 import styles from './global.module.scss';
-
-
 
 export default async function Admin() {
     return (
