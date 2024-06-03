@@ -76,7 +76,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form} method="post">
       <div className={styles.formGroup}>
         <label htmlFor="category" className={styles.label}>
-          Категории
+          Категории {errors.position && <span className={styles.error}>*</span>}
         </label>
         <select id="category" {...register('category', { required: true })} className={styles.select}>
           {categories.map(category => (
@@ -85,12 +85,11 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
             </option>
           ))}
         </select>
-        {errors.category && <span className={styles.error}>This field is required</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="position" className={styles.label}>
-          Должность
+          Должность {errors.position && <span className={styles.error}>*</span>}
         </label>
         <input
           id="position"
@@ -98,12 +97,11 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           placeholder="Должность"
           className={styles.input}
         />
-        {errors.position && <span className={styles.error}>This field is required</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="salary" className={styles.label}>
-          Зарплата
+          Зарплата {errors.position && <span className={styles.error}>*</span>}
         </label>
         <input
           id="salary"
@@ -111,24 +109,22 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           placeholder="Зарплата"
           className={styles.input}
         />
-        {errors.salary && <span className={styles.error}>This field is required</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="type" className={styles.label}>
-          Тип работы
+          Тип работы {errors.position && <span className={styles.error}>*</span>}
         </label>
         <select id="type" {...register('type', { required: true })} className={styles.select}>
           <option value="офис">Офис</option>
           <option value="дом">Дома</option>
           <option value="свалка">Свалка</option>
         </select>
-        {errors.type && <span className={styles.error}>This field is required</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="description" className={styles.label}>
-          Описание
+          Описание {errors.position && <span className={styles.error}>*</span>}
         </label>
         <textarea
           id="description"
@@ -140,42 +136,42 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
 
       <div className={styles.formGroup}>
         <label htmlFor="level" className={styles.label}>
-          Уровень
+          Уровень {errors.position && <span className={styles.error}>*</span>}
         </label>
         <input id="level" {...register('level')} placeholder="Middle" className={styles.input} />
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="number" className={styles.label}>
-          Номер вакансии
+          Номер {errors.position && <span className={styles.error}>*</span>}
         </label>
         <input id="number" {...register('number', { valueAsNumber: true })} placeholder="367870" className={styles.input} />
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="city" className={styles.label}>
-          Город
+          Город {errors.position && <span className={styles.error}>*</span>}
         </label>
-        <input id="city" {...register('city')} placeholder="Город" className={styles.input} />
+        <input id="city" {...register('city', { required: true })} placeholder="Город" className={styles.input} />
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="requirements" className={styles.label}>
-          Требования
+          Требования {errors.position && <span className={styles.error}>*</span>}
         </label>
         <textarea id="requirements" {...register('requirements')} placeholder="Требования к вакансии" className={styles.textarea} />
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="offer" className={styles.label}>
-          Предложение
+          Предложения {errors.position && <span className={styles.error}>*</span>}
         </label>
         <textarea id="offer" {...register('offer')} placeholder="Что мы предлагаем" className={styles.textarea} />
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="status" className={styles.label}>
-          Статус
+          Статус {errors.position && <span className={styles.error}>*</span>}
         </label>
         <select id="status" {...register('status')} className={styles.select}>
           <option value="true">Открыта</option>

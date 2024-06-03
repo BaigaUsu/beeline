@@ -1,0 +1,107 @@
+.stageCard {
+  background: linear-gradient(69.61deg, #ff9900 1.52%, #ffcd00 97.06%);
+  color: white;
+  padding: 4vw;
+  padding-bottom: 2vw;
+  border-radius: 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 40%;
+  text-align: center;
+  margin-bottom: 2vw; /* Add margin between cards */
+
+  h3 {
+    font-size: clamp(20px, 3.5vw, 35px);
+    margin-bottom: 1vw;
+  }
+
+  p {
+    font-size: clamp(15px, 2.5vw, 25px);
+    line-height: clamp(20px, 3vw, 30px);
+  }
+
+  .stageIcon {
+    font-size: clamp(1.5em, 2vw, 2em);
+    margin-bottom: 1vw;
+  }
+}
+
+.stageCard:nth-of-type(3),
+.stageCard:nth-of-type(4) {
+  padding-bottom: 1.5vw;
+}
+
+.stageCard:nth-of-type(3) p,
+.stageCard:nth-of-type(4) p {
+  font-size: clamp(12px, 2vw, 20px);
+  line-height: clamp(15px, 2.4vw, 24px);
+}
+
+@media (max-width: 768px) {
+  .stageCard {
+    padding: 6vw; // Увеличен отступ для лучшей читаемости на маленьких экранах
+    border-radius: 6vw; // Увеличен border-radius для лучшей читаемости на маленьких экранах
+    flex: 100%;
+
+    h3 {
+      font-size: clamp(24px, 4vw, 40px); // Увеличен размер шрифта заголовка
+      margin-bottom: 2vw; // Увеличен отступ снизу заголовка
+    }
+
+    p {
+      font-size: clamp(18px, 3vw, 30px); // Увеличен размер шрифта абзаца
+      line-height: clamp(24px, 4vw, 40px); // Увеличена высота строки абзаца
+    }
+
+    .stageIcon {
+      font-size: clamp(1.5em, 3vw, 3em); // Увеличен размер иконки
+      margin-bottom: 2vw; // Увеличен отступ снизу иконки
+    }
+  }
+
+  .stageCard:nth-of-type(3),
+  .stageCard:nth-of-type(4) {
+    padding: 4vw; // Увеличен отступ для карточек 3 и 4
+  }
+
+  .stageCard:nth-of-type(3) p,
+  .stageCard:nth-of-type(4) p {
+    font-size: clamp(16px, 2.5vw, 25px); // Увеличен размер шрифта абзаца для карточек 3 и 4
+    line-height: clamp(20px, 3.5vw, 35px); // Увеличена высота строки абзаца для карточек 3 и 4
+  }
+}
+
+@media (max-width: 480px) {
+  .stageCard {
+    margin: 0 30px;
+    padding: 3vw;
+    border-radius: 2vw;
+
+    h3 {
+      font-size: clamp(20px, 2.5vw, 25px);
+      margin-bottom: 1.2vw;
+    }
+
+    p {
+      font-size: clamp(15px, 1.8vw, 18px);
+      line-height: clamp(16px, 2.4vw, 24px);
+    }
+
+    .stageIcon {
+      font-size: clamp(1em, 1.2vw, 1.2em);
+      margin-bottom: 1.2vw;
+    }
+  }
+
+  .stageCard:nth-of-type(3),
+  .stageCard:nth-of-type(4) {
+    padding-bottom: 1vw;
+  }
+
+  .stageCard:nth-of-type(3) p,
+  .stageCard:nth-of-type(4) p {
+    font-size: clamp(12px, 1.6vw, 16px);
+    line-height: clamp(12px, 2vw, 20px);
+  }
+}

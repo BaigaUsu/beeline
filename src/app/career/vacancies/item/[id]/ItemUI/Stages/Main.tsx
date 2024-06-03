@@ -1,14 +1,12 @@
 import React from 'react';
-import styles from './styles.module.scss';
+import styles from './main.module.scss';
 import StageCard from './StageCard';
 import Coworking from './Coworking';
-import { Title } from '@/components/UI/Heading/Heading';
 import Resume from './Resume';
 
 const Main: React.FC = () => {
   return (
     <div className={styles.container}>
-      <Title className={styles.title}>Этапы устройства на стажировку</Title>
       <div className={styles.stages}>
         <StageCard
           iconSrc="/vacancy-icons/icon-1.svg"

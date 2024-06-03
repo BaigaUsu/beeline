@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import styles from './list.module.scss';
 import { MainTitle } from '@/components/UI/Heading/Heading';
@@ -20,6 +20,13 @@ interface Vacancy {
   offer: string;
   status: string;
 }
+
+const sectionHeaders = {
+  requirements: 'Требования:',
+  offer: 'Мы предлагаем:',
+  salary: 'Зарплата:',
+  type: 'Тип работы:',
+};
 
 export default function VacancyItem() {
   const [vacancy, setVacancy] = useState<Vacancy | null>(null);
@@ -45,6 +52,14 @@ export default function VacancyItem() {
 
   console.log('ID from router query:', id);
 
+  const formatList = (text: string) => {
+    return text.split(/[\r\n]+/).map((item, index) => <li key={index}>{item}</li>);
+  };
+
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -56,23 +71,28 @@ export default function VacancyItem() {
             <div className={styles.card}>
               <div className={styles.location}>
                 <Image src="/jobsIcons/locationIcon.svg" alt="" width="35" height="35" />
-                {vacancy.city}
+                г. {vacancy.city}
               </div>
               <h2>{vacancy.position}</h2>
+              <div className={styles.type}>
+                <h3>{sectionHeaders.type}</h3>
+                <p>{capitalizeFirstLetter(vacancy.type)}</p>
+              </div>
+              <div className={styles.salary}>
+                <h3>{sectionHeaders.salary}</h3>
+                <p>{vacancy.salary}</p>
+              </div>
+              
               <div className={styles.requirements}>
-                <h3>Требования:</h3>
+                <h3>{sectionHeaders.requirements}</h3>
                 <ul>
-                  {vacancy.requirements.split('\r\n').map((req, index) => (
-                    <li key={index}>{req}</li>
-                  ))}
+                  {formatList(vacancy.requirements)}
                 </ul>
               </div>
               <div className={styles.offer}>
-                <h3>Мы предлагаем:</h3>
+                <h3>{sectionHeaders.offer}</h3>
                 <ul>
-                  {vacancy.offer.split('\r\n').map((off, index) => (
-                    <li key={index}>{off}</li>
-                  ))}
+                  {formatList(vacancy.offer)}
                 </ul>
               </div>
             </div>
