@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import styles from './vacancyForm.module.scss';
 import ApiUrl from '@/app/api/apiList';
 import CategoryUrl from '@/app/api/apiCategory';
+import { kMaxLength } from 'buffer';
 
 type FormData = {
   position: string;
@@ -33,13 +34,19 @@ interface Category {
 }
 
 const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>();
   const { data: session } = useSession();
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      setValue('category', categories[0].id);
+    }
+  }, [categories, setValue]);
 
   const fetchCategories = async () => {
     try {
@@ -76,7 +83,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
   };
 
   const handleCancel = () => {
-    reset(); 
+    reset();
     window.scrollTo(0, 0);
   };
 
@@ -97,28 +104,57 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
 
       <div className={styles.formGroup}>
         <label htmlFor="position" className={styles.label}>
-          Должность {errors.position && <span className={styles.error}>*</span>}
+          Должность {errors.position && <span className={styles.error}>* Обязательно</span>}
         </label>
         <input
           id="position"
-          {...register('position', { required: true })}
+          {...register('position', { required: true, maxLength: 50 })}
           placeholder="Должность"
           className={styles.input}
         />
+       {errors.position && errors.position.type === 'maxLength' && <span className={styles.error}>Максимальное количество символов 50</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="salary" className={styles.label}>
-          Зарплата {errors.salary && <span className={styles.error}>*</span>}
+          Зарплата 
         </label>
         <input
-          type="number" 
-          min="0" 
           id="salary"
-          {...register('salary', { required: true })}
+          type="text"{...register('salary', {
+            validate: value => {
+              if (value === '' || value === undefined) {
+                return true;
+              }
+              const sanitizedValue = value.replace(/[^\d-]/g, '');
+              const [min, max] = sanitizedValue.split('-');
+              if (!min) {
+                return true;
+              }
+              const minValue = parseFloat(min);
+              if (isNaN(minValue)) {
+                return true;
+              }
+              if (minValue > 1000000) {
+                return 'Максимальная зарплата 1 000 000';
+              }
+              if (!max) {
+                return true;
+              }
+              const maxValue = parseFloat(max);
+              if (isNaN(maxValue)) {
+                return true;
+              }
+              if (maxValue > 1000000) {
+                return 'Максимальная зарплата 1 000 000';
+              }
+              return true;
+            }
+          })}
           placeholder="Зарплата"
           className={styles.input}
         />
+        {errors.salary && <span className={styles.error}>{errors.salary.message}</span>}
       </div>
 
       <div className={styles.formGroup}>
@@ -138,23 +174,26 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         </label>
         <textarea
           id="description"
-          {...register('description')}
+          {...register('description', { maxLength: 1000 })}
           placeholder="Пиши!!!"
           className={styles.textarea}
         />
+        {errors.description && <span className={styles.error}>Максимальное количество цифр 5</span>}      
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="number" className={styles.label}>
           Номер {errors.number && <span className={styles.error}>*</span>}
         </label>
-        <input 
-          id="number" 
-          type="number" 
-          min='0'
-          placeholder="367870" 
-          className={styles.input} 
+        <input
+          id="number"
+          type="number"
+          min="0"
+          {...register('number', { maxLength: 5 })}
+          placeholder="367870"
+          className={styles.input}
         />
+        {errors.number && <span className={styles.error}>Максимальное количество цифр 5</span>}
       </div>
 
       <div className={styles.formGroup}>
@@ -170,26 +209,28 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
 
       <div className={styles.formGroup}>
         <label htmlFor="requirements" className={styles.label}>
-          Требования {errors.requirements && <span className={styles.error}>*</span>}
+          Требования {errors.requirements && <span className={styles.error}>* Обязательно</span>}
         </label>
-        <textarea 
-          id="requirements" 
-          {...register('requirements', { required: true })} 
-          placeholder="Требования к вакансии" 
-          className={styles.textarea} 
+        <textarea
+          id="requirements"
+          {...register('requirements', { required: true, maxLength: 1000 })}
+          placeholder="Требования к вакансии"
+          className={styles.textarea}
         />
+        {errors.requirements && errors.requirements.type === 'maxLength' && <span className={styles.error}>Максимальное количество символов 1000</span>}
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="offer" className={styles.label}>
           Предложения {errors.offer && <span className={styles.error}>*</span>}
         </label>
-        <textarea 
-          id="offer" 
-          {...register('offer')} 
-          placeholder="Что мы предлагаем" 
-          className={styles.textarea} 
+        <textarea
+          id="offer"
+          {...register('offer', { maxLength: 1000 })}
+          placeholder="Что мы предлагаем"
+          className={styles.textarea}
         />
+        {errors.offer && <span className={styles.error}>Максимальное количество символов 1000</span>}
       </div>
 
       <div className={styles.formGroup}>
