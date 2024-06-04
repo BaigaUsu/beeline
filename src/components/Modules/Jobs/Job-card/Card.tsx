@@ -19,14 +19,19 @@ interface JobListProps {
   searchTerm: string;
   showAllJobs: boolean;
   category: number | null;
+  onFilteredJobsCountChange: (count: number) => void;
 }
 
-export default function JobList({ searchTerm, showAllJobs, category }: JobListProps) {
+export default function JobList({ searchTerm, showAllJobs, category, onFilteredJobsCountChange }: JobListProps) {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     fetchJobs();
   }, [category]);
+
+  useEffect(() => {
+    onFilteredJobsCountChange(filteredJobs.length);
+  }, [jobs, searchTerm, category]);
 
   const fetchJobs = async () => {
     try {
@@ -55,15 +60,19 @@ export default function JobList({ searchTerm, showAllJobs, category }: JobListPr
 
   return (
     <>
-      {jobsToDisplay.map((job) => (
-        <JobCard
-          key={job.id}
-          id={job.id}
-          position={job.position}
-          city={job.city}
-          description={job.description}
-        />
-      ))}
+      {jobsToDisplay.length > 0 ? (
+        jobsToDisplay.map((job) => (
+          <JobCard
+            key={job.id}
+            id={job.id}
+            position={job.position}
+            city={job.city}
+            description={job.description}
+          />
+        ))
+      ) : (
+        <p className={styles.noResults}>Ничего не найдено</p>
+      )}
     </>
   );
 }

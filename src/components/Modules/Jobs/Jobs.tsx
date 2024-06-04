@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import styles from './jobs.module.scss';
 import SearchField from "./Searchfield/SearchField";
@@ -15,6 +15,7 @@ export default function Jobs() {
   const [showAllJobs, setShowAllJobs] = useState<boolean>(false);
   const [category, setCategory] = useState<number | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [filteredJobsCount, setFilteredJobsCount] = useState<number>(0);
 
   useEffect(() => {
     fetchCategories();
@@ -30,6 +31,10 @@ export default function Jobs() {
     }
   };
 
+  const handleFilteredJobsCount = (count: number) => {
+    setFilteredJobsCount(count);
+  };
+
   return (
     <div className={styles.wrap}>
       <SearchField 
@@ -42,17 +47,20 @@ export default function Jobs() {
         <JobList 
           searchTerm={searchTerm} 
           showAllJobs={showAllJobs} 
-          category={category} 
+          category={category}
+          onFilteredJobsCountChange={handleFilteredJobsCount}
         />
       </div>
-      <div className={styles.vaccancyBtnWrap}>
-        <button
-          className={styles.vaccancyBtn}
-          onClick={() => setShowAllJobs(!showAllJobs)}
-        >
-          {showAllJobs ? 'Скрыть вакансии' : 'Все вакансии'}
-        </button>
-      </div>
+      {filteredJobsCount > 4 && (
+        <div className={styles.vaccancyBtnWrap}>
+          <button
+            className={styles.vaccancyBtn}
+            onClick={() => setShowAllJobs(!showAllJobs)}
+          >
+            {showAllJobs ? 'Скрыть вакансии' : 'Все вакансии'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

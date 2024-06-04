@@ -75,3 +75,12 @@
 .buttonWrapper {
   margin-top: auto;
 }
+
+.noResults {
+  position: absolute;
+  top: 0;
+  left: 330px;
+  font-size: 1.5em;
+  color: #555;
+  // margin-top: 20px;
+}
