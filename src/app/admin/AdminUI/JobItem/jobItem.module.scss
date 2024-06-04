@@ -3,7 +3,7 @@
   table-layout: fixed;
 
   td {
-    padding: 10px 20px;
+    padding: 10px 15px;
   }
 
   .position {
@@ -32,5 +32,18 @@
 
   .status {
     width: 15%;
+    span {
+      position: absolute;
+      padding-top: 5px;
+      padding-left: 15px;
+    }
+  }
+  .bg {
+    cursor: pointer;
+    background-color: #FFB001;
+    width: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 13px;
   }
 }

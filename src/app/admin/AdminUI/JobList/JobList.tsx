@@ -1,9 +1,7 @@
-'use client';
+'use client'
 import React, { useEffect, useState } from 'react';
 import styles from './jobList.module.scss';
 import JobItem from '../JobItem/JobItem';
-import Image from 'next/image';
-import Switch from 'react-switch';
 import ApiUrl from '@/app/api/apiList';
 import CategoryUrl from '@/app/api/apiCategory'; // Import the URL for fetching categories
 import { getSession, useSession } from 'next-auth/react';
@@ -11,12 +9,13 @@ import { getSession, useSession } from 'next-auth/react';
 interface Job {
   id: number;
   position: string;
-  level: string;
+  city: string;
   salary: string;
   type: string;
   number: string;
   status: boolean;
   category: number;
+  date: number;
 }
 
 interface Category {
@@ -35,13 +34,12 @@ type SortConfig = {
 
 const JobList: React.FC<JobListProps> = ({ className }) => {
   const { data: session } = useSession();
-  const [globalActive, setGlobalActive] = useState(false);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
   const [filterCategory, setFilterCategory] = useState<number | null>(null);
   const [filterType, setFilterType] = useState<string | null>(null);
-  const [filterLevel, setFilterLevel] = useState<string | null>(null);
+  const [filterCity, setFilterLevel] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<boolean | null>(null);
   const [filterSalaryRange, setFilterSalaryRange] = useState<string | null>(null);
 
@@ -81,26 +79,21 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
   };
 
   const handleStatusChange = async (id: number, status: boolean) => {
-  try {
-    const session = await getSession(); // Ensure session is fetched properly
+    try {
+      const session = await getSession(); 
 
-    await fetch(`${ApiUrl}/${id}/`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${session?.user.token}`, // Include the token in the header
-      },
-      body: JSON.stringify({ status }),
-    });
-    setJobs(jobs.map(job => job.id === id ? { ...job, status } : job));
-  } catch (error) {
-    console.error('Error updating job status:', error);
-  }
-};
-
-
-  const handleGlobalToggle = () => {
-    setGlobalActive(!globalActive);
+      await fetch(`${ApiUrl}/${id}/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${session?.user.token}`
+        },
+        body: JSON.stringify({ status }),
+      });
+      setJobs(jobs.map(job => job.id === id ? { ...job, status } : job));
+    } catch (error) {
+      console.error('Error updating job status:', error);
+    }
   };
 
   const handleSort = (key: keyof Job) => {
@@ -111,13 +104,13 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     setSortConfig({ key, direction });
   };
 
-  const handleFilterChange = (filter: 'type' | 'level' | 'status' | 'salary' | 'category') => (
+  const handleFilterChange = (filter: 'type' | 'city' | 'status' | 'salary' | 'category') => (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const value = event.target.value;
     if (filter === 'type') {
       setFilterType(value);
-    } else if (filter === 'level') {
+    } else if (filter === 'city') {
       setFilterLevel(value);
     } else if (filter === 'status') {
       setFilterStatus(value === 'true' ? true : value === 'false' ? false : null);
@@ -129,15 +122,17 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
   };
 
   const parseSalary = (salary: string): number => {
-    return parseInt(salary.replace(/[^0-9]/g, ''), 10);
+    return parseFloat(salary.replace(/[^0-9]/g, ''));
   };
 
-  const getSalaryRange = (range: string): [number, number] | string => {
-    if (range === "2000") {
-      return "2000+";
+  const getSalaryRange = (range: string): [number, number] | null => {
+    const parts = range.split('-').map(part => part.trim());
+    if (parts.length === 2) {
+      const minSalary = parseSalary(parts[0]);
+      const maxSalary = parseSalary(parts[1]);
+      return [minSalary, maxSalary];
     }
-    const [min, max] = range.split('-').map(str => parseInt(str.replace(/[^0-9]/g, ''), 10));
-    return [min, max];
+    return null;
   };
 
   const sortedJobs = React.useMemo(() => {
@@ -151,8 +146,8 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
       filteredJobs = filteredJobs.filter(job => job.type === filterType);
     }
 
-    if (filterLevel) {
-      filteredJobs = filteredJobs.filter(job => job.level === filterLevel);
+    if (filterCity) {
+      filteredJobs = filteredJobs.filter(job => job.city === filterCity);
     }
 
     if (filterStatus !== null) {
@@ -161,15 +156,19 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
 
     if (filterSalaryRange) {
       const salaryRange = getSalaryRange(filterSalaryRange);
-      filteredJobs = filteredJobs.filter(job => {
-        const salary = parseSalary(job.salary);
-        if (salaryRange === "2000+") {
-          return salary > 2000;
-        } else {
-          const [minSalary, maxSalary] = salaryRange as [number, number];
+      if (salaryRange) {
+        const [minSalary, maxSalary] = salaryRange;
+        filteredJobs = filteredJobs.filter(job => {
+          const salary = parseSalary(job.salary);
           return salary >= minSalary && salary <= maxSalary;
-        }
-      });
+        });
+      } else {
+        const minSalary = parseSalary(filterSalaryRange);
+        filteredJobs = filteredJobs.filter(job => {
+          const salary = parseSalary(job.salary);
+          return salary >= minSalary;
+        });
+      }
     }
 
     if (!sortConfig) return filteredJobs;
@@ -183,14 +182,14 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
       }
       return 0;
     });
-  }, [jobs, sortConfig, filterCategory, filterType, filterLevel, filterStatus, filterSalaryRange]);
+  }, [jobs, sortConfig, filterCategory, filterType, filterCity, filterStatus, filterSalaryRange]);
 
   return (
     <div className={`${styles.jobList} ${className}`}>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>
+            <th className={styles.category}>
               <div className={styles.filterContainer}>
                 Категория
                 <select onChange={handleFilterChange('category')}>
@@ -203,31 +202,31 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
                 </select>
               </div>
             </th>
-            <th>
+            <th className={styles.city}>
               <div className={styles.filterContainer}>
-                Уровень
-                <select onChange={handleFilterChange('level')}>
+                Город
+                <select onChange={handleFilterChange('city')}>
                   <option value="">Все</option>
-                  <option value="easy">easy</option>
-                  <option value="Middle">middle</option>
-                  <option value="hard">hard</option>
+                  <option value="Бишкек">Бишкек</option>
+                  <option value="Ош">Ош</option>
+                  <option value="Бишкек/Ош">Бишкек/Ош</option>
                 </select>
               </div>
             </th>
-            <th>
+            <th className={styles.salary}>
               <div className={styles.filterContainer}>
                 Зарплата
                 <select onChange={handleFilterChange('salary')}>
                   <option value="">Все</option>
-                  <option value="1-100">1$ - 100$</option>
-                  <option value="100-500">100$ - 500$</option>
-                  <option value="500-1000">500$ - 1000$</option>
-                  <option value="1500-2000">1500$ - 2000$</option>
-                  <option value="2000">2000$ и больше</option>
+                  <option value="20.000">от 20 000 сомов</option>
+                  <option value="40.000">от 40.000 сомов</option>
+                  <option value="60.000">от 60 000 сомов</option>
+                  <option value="80.000">от 80 000 сомов</option>
+                  <option value="100.000">от 100 000 сомов</option>
                 </select>
               </div>
             </th>
-            <th>
+            <th className={styles.type}>
               <div className={styles.filterContainer}>
                 Тип
                 <select onChange={handleFilterChange('type')}>
@@ -238,25 +237,28 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
                 </select>
               </div>
             </th>
-            <th onClick={() => handleSort('number')}>
+            <th onClick={() => handleSort('number')} className={styles.number}>
               <div className={styles.filterContainer}>
                 <div className={styles.filterElement}>
                   Номер 
-                  <Image src='/admin-icons/icon-9.svg' alt='' width='14' height='14' className={styles.icon}/>
                 </div>
               </div>
             </th>
-            <th>
-              <Switch onChange={handleGlobalToggle} checked={globalActive} checkedIcon={false} uncheckedIcon={false} onColor="#ff9800" offColor="#ccc" />
-            </th>
-            <th>
+            <th className={styles.status}>
               <div className={styles.filterContainer}>
                 Статус
-                <select onChange={handleFilterChange('status')}>
-                  <option value="">Все</option>
-                  <option value="true">Активен</option>
-                  <option value="false">Неактивен</option>
-                </select>
+              </div>
+            </th>
+            <th className={styles.date}>
+              <div className={styles.filterContainer}>
+                Дата
+              </div>
+            </th>
+            <th className={styles.edit}>
+              <div className={styles.filterContainer}>
+                <div className={styles.filterElement}>
+                  Редак-ть
+                </div>
               </div>
             </th>
           </tr>
@@ -267,11 +269,12 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
               key={job.id}
               id={job.id}
               position={job.position}
-              level={job.level}
+              city={job.city}
               salary={job.salary}
               type={job.type}
               number={job.number}
               status={job.status}
+              date={job.date}
               onStatusChange={handleStatusChange}
             />
           ))}

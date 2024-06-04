@@ -1,57 +1,68 @@
-.jobList {
-  background-color: #fff;
-  margin-left: 10px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
-  button {
-    background-color: #ffa500;
-    border: none;
-    padding: 10px 20px;
-    color: #fff;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-}
-
 .table {
   width: 100%;
-  // border-collapse: collapse;
+  table-layout: fixed;
+  border-collapse: collapse;
 
-  th{
+  .filterContainer select {
+  width: 100%;
+  white-space: nowrap; /* Запрещаем перенос текста */
+  overflow: hidden; /* Скрываем контент, который выходит за пределы ячейки */
+  text-overflow: ellipsis; /* Обрезаем текст и добавляем многоточие, если он не помещается */
+}
+
+  th {
     vertical-align: top;
-    padding: 0 20px;
+    padding: 0 12px;
     text-align: left;
     border-bottom: 2px solid #FFD4A8;
   }
+
+  .category {
+    width: 16%; /* Устанавливаем ширину первой колонки чуть меньше */
+  }
+
+  .city {
+    width: 8%; /* Устанавливаем ширину колонок с зарплатой, датой и статусом чуть больше */
+  }
+
+  .salary {
+    width: 14%; /* Устанавливаем одинаковую и меньшую ширину для остальных колонок */
+  }
+
+  .type {
+    width: 6%;
+  }
+
+  .number {
+    width: 6%;
+  }
+
+  .experience {
+    width: 8%;
+  }
+
+  .status {
+    width: 10%;
+  }
+
+  .date {
+    width: 7%;
+  }
+
+  .edit {
+    width: 5.5%;
+    
+  }
+
   td {
-    // background-color: #ffa500;
+    padding: 10px 20px;
     border-bottom: 1px solid #EFF2F7;
+    // overflow: hidden; /* Скрываем контент, который выходит за границы ячейки */
+    // white-space: nowrap; /* Запрещаем перенос текста */
+    // text-overflow: ellipsis; /* Обрезаем текст, который не помещается */
   }
 
   tbody {
-    padding: 20px;
-  }
-}
-
-.filterContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  text-align: start;
-  margin-bottom: 10px;
-
-  .filterElement {
-    display: flex;
-    gap: 5px;
-    align-items: flex-start;
-  }
-
-  .icon {
-    margin-top: 3px;
+    padding: 10px;
   }
 }

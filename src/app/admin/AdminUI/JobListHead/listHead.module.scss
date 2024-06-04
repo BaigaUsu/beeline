@@ -10,14 +10,16 @@
 .title {
   font-size: 24px;
   font-weight: 700;
+  margin-left: 20px;
 }
 
 .profile {
   text-align: right;
   display: flex;
   align-items: center;
+  padding-right: 40px;
 
-  .btn1, .btn2 {
+  .btn1 {
     display: flex;
     align-items: center;
     gap: 5px;

@@ -1,48 +1,51 @@
-import React, { useState, useEffect } from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import styles from './jobItem.module.scss';
 import Switch from 'react-switch';
-
+import Image from 'next/image';
+import Link from 'next/link';
 interface JobProps {
   id: number;
   position: string;
-  level: string;
+  city: string;
   salary: string;
   type: string;
   number: string;
   status: boolean;
+  date: number;
   onStatusChange: (id: number, status: boolean) => void;
 }
-
 const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-
-const JobItem: React.FC<JobProps> = ({ id, position, level, salary, type, number, status, onStatusChange }) => {
+const JobItem: React.FC<JobProps> = ({ id, position, city, salary, type, number, status, date, onStatusChange }) => {
   const [isActive, setIsActive] = useState(status);
-
   const handleToggle = () => {
     const newStatus = !isActive;
     setIsActive(newStatus);
     onStatusChange(id, newStatus); 
   };
-
   useEffect(() => {
     setIsActive(status);  
   }, [status]);
-
   return (
     <tr className={styles.jobItem}>
       <td className={styles.position}>{position}</td>
-      <td className={styles.level}>{level}</td>
+      <td className={styles.level}>{city}</td>
       <td className={styles.salary}>{salary}</td>
       <td className={styles.type}>{capitalizeFirstLetter(type)}</td>
       <td className={styles.number}>{number}</td>
-      <td className={styles.switch}>
+      <td className={styles.status}>
         <Switch onChange={handleToggle} checked={isActive} checkedIcon={false} uncheckedIcon={false} onColor="#ff9800" offColor="#ccc" />
+        <span>{isActive ? 'Активен' : 'Неактивен'}</span>
       </td>
-      <td className={styles.status}>{isActive ? 'Активен' : 'Неактивен'}</td>
+      <td className={styles.date}>{date}</td>
+      <td className={styles.editIcon}>
+        <Link href={`/admin/edit/${id}`} className={styles.bg}>
+          <Image src='/admin-icons/icon-8.svg' alt='Edit' width='20' height='20'/>
+        </Link>
+      </td>
     </tr>
   );
 };
-
 export default JobItem;
