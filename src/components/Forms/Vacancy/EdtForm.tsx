@@ -25,6 +25,11 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
   const { id } = useParams(); 
   const [job, setJob] = useState<any>(null);
   const [categories, setCategories] = useState<any[]>([]);
+  const [showPositionWarning, setShowPositionWarning] = useState(false);
+  const [showDescriptionWarning, setShowDescriptionWarning] = useState(false);
+  const [showRequirementsWarning, setShowRequirementsWarning] = useState(false);
+  const [showOfferWarning, setShowOfferWarning] = useState(false);
+  const [showNumberWarning, setShowNumberWarning] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -83,15 +88,46 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    if (name === 'position' && value.length > 50) {
+      setShowPositionWarning(true);
+      return;
+    } else {
+      setShowPositionWarning(false);
+    }
+    
+    if ((name === 'requirements' || name === 'description' || name === 'offer') && value.length > 1000) {
+      if (name === 'requirements') setShowRequirementsWarning(true);
+      if (name === 'description') setShowDescriptionWarning(true);
+      if (name === 'offer') setShowOfferWarning(true);
+      return;
+    } else {
+      if (name === 'requirements') setShowRequirementsWarning(false);
+      if (name === 'description') setShowDescriptionWarning(false);
+      if (name === 'offer') setShowOfferWarning(false);
+    }
+    
+    if (name === 'number' && value.length > 5) {
+      setShowNumberWarning(true);
+      return;
+    } else {
+      setShowNumberWarning(false);
+    }
+
+    if (name === 'salary') {
+      const validationResult = validate(value);
+      if (validationResult !== true) {
+        setErrors({ ...errors, salary: validationResult });
+      } else {
+        setErrors({ ...errors, salary: undefined });
+      }
+    }
+
     setJob({ ...job, [name]: value });
     if (name === 'position') {
       validatePosition(value);
     } 
     if (name === 'category') {
       validateCategory(value);
-    } 
-    if (name === 'salary') {
-      validateSalary(value);
     } 
     if (name === 'type') {
       validateType(value);
@@ -120,14 +156,6 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
     }
   };
 
-  const validateSalary= (value: string) => {
-    if (!value.trim()) {
-      setErrors({ ...errors, salary: '* Обязательно' });
-    } else {
-      setErrors({ ...errors, salary: undefined });
-    }
-  };
-
   const validateType= (value: string) => {
     if (!value.trim()) {
       setErrors({ ...errors, type: '* Обязательно' });
@@ -152,6 +180,35 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
     }
   };
 
+  const validate = (value: string) => {
+    if (value === '' || value === undefined) {
+      return true;
+    }
+    const sanitizedValue = value.replace(/[^\d-]/g, '');
+    const [min, max] = sanitizedValue.split('-');
+    if (!min) {
+      return true;
+    }
+    const minValue = parseFloat(min);
+    if (isNaN(minValue)) {
+      return true;
+    }
+    if (minValue > 1000000) {
+      return 'Максимальная зарплата 1 000 000';
+    }
+    if (!max) {
+      return true;
+    }
+    const maxValue = parseFloat(max);
+    if (isNaN(maxValue)) {
+      return true;
+    }
+    if (maxValue > 1000000) {
+      return 'Максимальная зарплата 1 000 000';
+    }
+    return true;
+  };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -161,7 +218,6 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
         throw new Error("Session is not available");
       }
 
-      // Convert date to correct format
       const formattedJob = { ...job, date: new Date(job.date).toISOString() };
 
       console.log('Submitting updated job:', formattedJob); 
@@ -246,21 +302,21 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           className={styles.input}
           value={job.position} onChange={handleChange}
         />      
+        {showPositionWarning && <span className={styles.error}>Максимальное количество символов - 50</span>} 
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="salary" className={styles.label}>
-          Зарплата {errors.salary && <span className={styles.error}>{errors.salary}</span>}
+          Зарплата 
         </label>
         <input
           name='salary'
-          type="number" 
           min="0" 
           id="salary"
           placeholder="Зарплата"
           className={styles.input}
           value={job.salary} onChange={handleChange}
-          required
         />
+        {errors.salary && <span className={styles.error}>{errors.salary}</span>}
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="type" className={styles.label}>
@@ -283,6 +339,7 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           className={styles.textarea}
           value={job.description} onChange={handleChange}
         />
+        {showDescriptionWarning && <span className={styles.error}>Максимальное количество символов - 1000</span>}
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="number" className={styles.label}>
@@ -297,6 +354,7 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           className={styles.input} 
           value={job.number} onChange={handleChange}
         />
+        {showNumberWarning && <span className={styles.error}>Максимальное количество символов - 5</span>} 
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="city" className={styles.label}>
@@ -321,6 +379,7 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           value={job.requirements} onChange={handleChange}
           required
         />
+        {showRequirementsWarning && <span className={styles.error}>Максимальное количество символов - 1000</span>}
       </div>
 
       <div className={styles.formGroup}>
@@ -334,6 +393,7 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           className={styles.textarea} 
           value={job.offer} onChange={handleChange}
         />
+        {showOfferWarning && <span className={styles.error}>Максимальное количество символов - 1000</span>}
       </div>
 
       <div className={styles.formGroup}>

@@ -126,14 +126,14 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
   };
 
   const getSalaryRange = (range: string): [number, number] | null => {
-    const parts = range.split('-').map(part => part.trim());
-    if (parts.length === 2) {
-      const minSalary = parseSalary(parts[0]);
-      const maxSalary = parseSalary(parts[1]);
-      return [minSalary, maxSalary];
-    }
-    return null;
-  };
+  const parts = range.split('-').map(part => part.trim());
+  if (parts.length === 2) {
+    const minSalary = parseSalary(parts[0]);
+    const maxSalary = parseSalary(parts[1]);
+    return [minSalary, maxSalary];
+  }
+  return null;
+};
 
   const sortedJobs = React.useMemo(() => {
     let filteredJobs = jobs;
@@ -155,21 +155,20 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     }
 
     if (filterSalaryRange) {
-      const salaryRange = getSalaryRange(filterSalaryRange);
-      if (salaryRange) {
-        const [minSalary, maxSalary] = salaryRange;
-        filteredJobs = filteredJobs.filter(job => {
-          const salary = parseSalary(job.salary);
-          return salary >= minSalary && salary <= maxSalary;
-        });
+  const minSalaryFilter = parseSalary(filterSalaryRange);
+  filteredJobs = filteredJobs.filter(job => {
+    const salaryRange = getSalaryRange(job.salary);
+    if (salaryRange) {
+      const [minSalary, maxSalary] = salaryRange;
+      if (minSalaryFilter <= 100000) {
+        return minSalary >= minSalaryFilter && maxSalary >= minSalaryFilter;
       } else {
-        const minSalary = parseSalary(filterSalaryRange);
-        filteredJobs = filteredJobs.filter(job => {
-          const salary = parseSalary(job.salary);
-          return salary >= minSalary;
-        });
+        return minSalary >= minSalaryFilter;
       }
     }
+    return false;
+  });
+}
 
     if (!sortConfig) return filteredJobs;
 
@@ -218,11 +217,17 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
                 Зарплата
                 <select onChange={handleFilterChange('salary')}>
                   <option value="">Все</option>
-                  <option value="20.000">от 20 000 сомов</option>
-                  <option value="40.000">от 40.000 сомов</option>
-                  <option value="60.000">от 60 000 сомов</option>
-                  <option value="80.000">от 80 000 сомов</option>
-                  <option value="100.000">от 100 000 сомов</option>
+                  <option value="10000">от 10 000 сом</option>
+                  <option value="20000">от 20 000 сом</option>
+                  <option value="40000">от 40 000 сом</option>
+                  <option value="60000">от 60 000 сом</option>
+                  <option value="80000">от 80 000 сом</option>
+                  <option value="100000">от 100 000 сом</option>
+                  <option value="200000">от 200 000 сом</option>
+                  <option value="300000">от 300 000 сом</option>
+                  <option value="400000">от 400 000 сом</option>
+                  <option value="500000">от 500 000 сом</option>
+                  <option value="1000000">больше 500 000 сом</option>
                 </select>
               </div>
             </th>
