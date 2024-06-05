@@ -10,6 +10,7 @@ interface HeaderProps {
 
 const  Header: React.FC<HeaderProps> = async({ className }) => {
     const session = await getServerSession(authConfig);
+    console.log('Session:', session);
     return (
         <div className={styles.container}>
             <div className={styles.logo}>
@@ -21,7 +22,7 @@ const  Header: React.FC<HeaderProps> = async({ className }) => {
                     <div >{session?.user?.name}</div> 
                     <div className={styles.position}>{session?.user?.role}</div>
                 </div>
-                <Image src='/headerIcons/logo.svg' alt='' width='44' height='44'/>
+                <Image src='/user/user-1.png' alt='' width='44' height='44'/>
             </div>
         </div>
     )

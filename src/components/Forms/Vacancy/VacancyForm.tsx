@@ -170,7 +170,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
 
       <div className={styles.formGroup}>
         <label htmlFor="description" className={styles.label}>
-          Описание {errors.description && <span className={styles.error}>*</span>}
+          Описание 
         </label>
         <textarea
           id="description"
@@ -178,12 +178,12 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           placeholder="Пиши!!!"
           className={styles.textarea}
         />
-        {errors.description && <span className={styles.error}>Максимальное количество цифр 5</span>}      
+        {errors.description && errors.description.type === 'maxLength' && <span className={styles.error}>Максимальное количество символов 1000</span>}      
       </div>
 
       <div className={styles.formGroup}>
         <label htmlFor="number" className={styles.label}>
-          Номер {errors.number && <span className={styles.error}>*</span>}
+          Номер 
         </label>
         <input
           id="number"
@@ -222,7 +222,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
 
       <div className={styles.formGroup}>
         <label htmlFor="offer" className={styles.label}>
-          Предложения {errors.offer && <span className={styles.error}>*</span>}
+          Предложения 
         </label>
         <textarea
           id="offer"
@@ -230,7 +230,7 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           placeholder="Что мы предлагаем"
           className={styles.textarea}
         />
-        {errors.offer && <span className={styles.error}>Максимальное количество символов 1000</span>}
+        {errors.offer && errors.offer.type === 'maxLength' && <span className={styles.error}>Максимальное количество символов 1000</span>}
       </div>
 
       <div className={styles.formGroup}>

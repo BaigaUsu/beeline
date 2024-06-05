@@ -39,7 +39,7 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
   const [filterCategory, setFilterCategory] = useState<number | null>(null);
   const [filterType, setFilterType] = useState<string | null>(null);
-  const [filterCity, setFilterLevel] = useState<string | null>(null);
+  const [filterCity, setFilterCity] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<boolean | null>(null);
   const [filterSalaryRange, setFilterSalaryRange] = useState<string | null>(null);
 
@@ -80,7 +80,7 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
 
   const handleStatusChange = async (id: number, status: boolean) => {
     try {
-      const session = await getSession(); 
+      const session = await getSession();
 
       await fetch(`${ApiUrl}/${id}/`, {
         method: 'PATCH',
@@ -111,7 +111,7 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     if (filter === 'type') {
       setFilterType(value);
     } else if (filter === 'city') {
-      setFilterLevel(value);
+      setFilterCity(value);
     } else if (filter === 'status') {
       setFilterStatus(value === 'true' ? true : value === 'false' ? false : null);
     } else if (filter === 'salary') {
@@ -126,14 +126,14 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
   };
 
   const getSalaryRange = (range: string): [number, number] | null => {
-  const parts = range.split('-').map(part => part.trim());
-  if (parts.length === 2) {
-    const minSalary = parseSalary(parts[0]);
-    const maxSalary = parseSalary(parts[1]);
-    return [minSalary, maxSalary];
-  }
-  return null;
-};
+    const parts = range.split('-').map(part => part.trim());
+    if (parts.length === 2) {
+      const minSalary = parseSalary(parts[0]);
+      const maxSalary = parseSalary(parts[1]);
+      return [minSalary, maxSalary];
+    }
+    return null;
+  };
 
   const sortedJobs = React.useMemo(() => {
     let filteredJobs = jobs;
@@ -155,30 +155,40 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
     }
 
     if (filterSalaryRange) {
-  const minSalaryFilter = parseSalary(filterSalaryRange);
-  filteredJobs = filteredJobs.filter(job => {
-    const salaryRange = getSalaryRange(job.salary);
-    if (salaryRange) {
-      const [minSalary, maxSalary] = salaryRange;
-      if (minSalaryFilter <= 100000) {
-        return minSalary >= minSalaryFilter && maxSalary >= minSalaryFilter;
-      } else {
-        return minSalary >= minSalaryFilter;
-      }
+      const minSalaryFilter = parseSalary(filterSalaryRange);
+      filteredJobs = filteredJobs.filter(job => {
+        const salaryRange = getSalaryRange(job.salary);
+        if (salaryRange) {
+          const [minSalary, maxSalary] = salaryRange;
+          if (minSalaryFilter <= 100000) {
+            return minSalary >= minSalaryFilter && maxSalary >= minSalaryFilter;
+          } else {
+            return minSalary >= minSalaryFilter;
+          }
+        }
+        return false;
+      });
     }
-    return false;
-  });
-}
 
     if (!sortConfig) return filteredJobs;
 
     return [...filteredJobs].sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key]) {
-        return sortConfig.direction === 'ascending' ? -1 : 1;
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+      
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        if (aValue < bValue) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
       }
-      if (a[sortConfig.key] > b[sortConfig.key]) {
-        return sortConfig.direction === 'ascending' ? 1 : -1;
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sortConfig.direction === 'ascending' ? aValue - bValue : bValue - aValue;
       }
+
       return 0;
     });
   }, [jobs, sortConfig, filterCategory, filterType, filterCity, filterStatus, filterSalaryRange]);
@@ -245,7 +255,7 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
             <th onClick={() => handleSort('number')} className={styles.number}>
               <div className={styles.filterContainer}>
                 <div className={styles.filterElement}>
-                  Номер 
+                  Номер {sortConfig?.key === 'number' && (sortConfig.direction === 'ascending')}
                 </div>
               </div>
             </th>

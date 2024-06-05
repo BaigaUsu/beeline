@@ -5,7 +5,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
       const vacancyData = req.body;
       console.log('Received vacancy data:', vacancyData);
-      // Выполните необходимые операции с данными vacancyData
       res.status(200).json({ message: 'Vacancy data saved successfully' });
     } catch (error) {
       console.error('Error:', error);

@@ -410,7 +410,7 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           Сохранить
         </button>
         <button className={styles.cancelButton} onClick={handleDelete}>
-          Delete Job
+          Удалить
         </button>
       </div>
     </form>

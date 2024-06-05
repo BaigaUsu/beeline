@@ -31,7 +31,6 @@ export default function Team() {
         navigationOptions.prevEl = prevButtonRef.current;
         navigationOptions.nextEl = nextButtonRef.current;
 
-        // Reinitialize navigation
         swiperInstance.navigation.destroy();
         swiperInstance.navigation.init();
         swiperInstance.navigation.update();
