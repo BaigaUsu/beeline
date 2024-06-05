@@ -248,14 +248,15 @@ const JobList: React.FC<JobListProps> = ({ className }) => {
                   <option value="">Все</option>
                   <option value="офис">Офис</option>
                   <option value="дом">Дом</option>
-                  <option value="свалка">Свалка</option>
                 </select>
               </div>
             </th>
             <th onClick={() => handleSort('number')} className={styles.number}>
               <div className={styles.filterContainer}>
                 <div className={styles.filterElement}>
-                  Номер {sortConfig?.key === 'number' && (sortConfig.direction === 'ascending')}
+                  Номер {sortConfig && sortConfig.key === 'number' && (
+                <span>{sortConfig.direction === 'ascending' ? ' ' : ' '}</span>
+              )}
                 </div>
               </div>
             </th>

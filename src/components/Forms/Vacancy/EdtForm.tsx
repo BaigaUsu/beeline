@@ -325,7 +325,6 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
         <select id="type" name='type' className={styles.select} value={job.type} onChange={handleChange} required>
           <option value="офис">Офис</option>
           <option value="дом">Дома</option>
-          <option value="свалка">Свалка</option>
         </select>
       </div>
       <div className={styles.formGroup}>
@@ -340,21 +339,6 @@ const EditForm: React.FC<EditFormProps> = ({ className }) => {
           value={job.description} onChange={handleChange}
         />
         {showDescriptionWarning && <span className={styles.error}>Максимальное количество символов - 1000</span>}
-      </div>
-      <div className={styles.formGroup}>
-        <label htmlFor="number" className={styles.label}>
-          Номер 
-        </label>
-        <input 
-          name='number'
-          id="number" 
-          type="number" 
-          min='0'
-          placeholder="367870" 
-          className={styles.input} 
-          value={job.number} onChange={handleChange}
-        />
-        {showNumberWarning && <span className={styles.error}>Максимальное количество символов - 5</span>} 
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="city" className={styles.label}>

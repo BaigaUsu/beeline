@@ -164,7 +164,6 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
         <select id="type" {...register('type', { required: true })} className={styles.select}>
           <option value="офис">Офис</option>
           <option value="дом">Дома</option>
-          <option value="свалка">Свалка</option>
         </select>
       </div>
 
@@ -179,21 +178,6 @@ const VacancyForm: React.FC<VacancyFormProps> = ({ className }) => {
           className={styles.textarea}
         />
         {errors.description && errors.description.type === 'maxLength' && <span className={styles.error}>Максимальное количество символов 1000</span>}      
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="number" className={styles.label}>
-          Номер 
-        </label>
-        <input
-          id="number"
-          type="number"
-          min="0"
-          {...register('number', { maxLength: 5 })}
-          placeholder="367870"
-          className={styles.input}
-        />
-        {errors.number && <span className={styles.error}>Максимальное количество цифр 5</span>}
       </div>
 
       <div className={styles.formGroup}>
